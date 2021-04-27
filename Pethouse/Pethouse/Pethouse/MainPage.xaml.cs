@@ -1,4 +1,9 @@
-﻿using Xamarin.Forms;
+﻿using Newtonsoft.Json;
+using Pethouse.Models;
+using System;
+using System.Net.Http;
+using System.Text;
+using Xamarin.Forms;
 
 namespace Pethouse
 {
@@ -8,24 +13,49 @@ namespace Pethouse
         {
             InitializeComponent();
         }
-        /// <summary>
-        /// Send Username and Password to the API and checks if such credentials are found.
-        /// If such credentials exist API returns true and the Login is succesfull.
-        /// If not the API returns a value of False.
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="passWord"></param>
-        public void Login(string userName, string passWord)
-        {
-            //Login method
 
-        }
-        /// <summary>
-        /// Redirects the user to the registration view
-        /// </summary>
-        public void Register()s
+        private async void LoginBtn_OnClicked(object sender, EventArgs e)
         {
-            //Redirects the user to the register view
+            string userName = this.userName.Text; //Get username from Username entry field
+            string passWord = this.pwdEntryOne.Text; //Get password from Password entry field
+            HttpClient client = new HttpClient(); //Initialize HttpClient
+            Login login = new Login() //New instance of Login class with user credentials
+            {
+                UserName = userName,
+                PassWord = passWord
+            };
+            //JsonConvert
+            string input = JsonConvert.SerializeObject(login);
+            StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
+            //Send post
+            HttpResponseMessage message = await client.PostAsync("/api/users", content);
+            //Otetaan vastaan palvelimen vastaus
+            string reply = await message.Content.ReadAsStringAsync();
+
+            //Asetetaan vastauus serialisoituna success muuttujaan
+            bool success = JsonConvert.DeserializeObject<bool>(reply);
+
+            //Näytetään ehdollisesti alert viesti
+            if (success)
+            {
+                //Tähän siirtyminen seuraavaan näkymään
+                await DisplayAlert("Työn aloitus", "Työ aloitettu.", "Sulje");
+            }
+            else
+            {
+                await DisplayAlert("Login not successfull", "Incorrect credentials or user not found", "close");
+            }
+
+            /*TODO:
+            client.BaseAddress = new Uri(""); //API address
+            Send get request with parameters: userName & passWord
+            If username & password are in the database respond with True
+            else
+            respond with false
+            show error message "Incorrect password or user not found".
+            */
+
+            throw new NotImplementedException();
         }
     }
 }

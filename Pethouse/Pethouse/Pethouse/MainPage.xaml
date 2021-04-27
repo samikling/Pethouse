@@ -12,6 +12,7 @@
         <Entry x:Name="userName" Text=""></Entry>
         <Label Text="Password:"></Label>
         <Entry x:Name="pwdEntryOne" Text="" IsPassword="True"></Entry>
+        <Button x:Name="loginBtn" Clicked="LoginBtn_OnClicked" Text="Login"></Button>
 
         <Label FontSize="16" Padding="30,24,30,0">
             <Label.FormattedText>
