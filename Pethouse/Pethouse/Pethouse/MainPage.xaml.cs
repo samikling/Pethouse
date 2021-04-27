@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Pethouse
 {
@@ -13,6 +7,25 @@ namespace Pethouse
         public MainPage()
         {
             InitializeComponent();
+        }
+        /// <summary>
+        /// Send Username and Password to the API and checks if such credentials are found.
+        /// If such credentials exist API returns true and the Login is succesfull.
+        /// If not the API returns a value of False.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="passWord"></param>
+        public void Login(string userName, string passWord)
+        {
+            //Login method
+
+        }
+        /// <summary>
+        /// Redirects the user to the registration view
+        /// </summary>
+        public void Register()s
+        {
+            //Redirects the user to the register view
         }
     }
 }
