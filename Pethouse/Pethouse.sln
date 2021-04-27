@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pethouse.Android", "Pethouse\Pethouse.Android\Pethouse.Android.csproj", "{9478F380-301B-41B0-812D-B36602312B81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pethouse", "Pethouse\Pethouse\Pethouse.csproj", "{0AACB74F-0A81-4CD2-83B6-EF912E6642BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9478F380-301B-41B0-812D-B36602312B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9478F380-301B-41B0-812D-B36602312B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9478F380-301B-41B0-812D-B36602312B81}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9478F380-301B-41B0-812D-B36602312B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9478F380-301B-41B0-812D-B36602312B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9478F380-301B-41B0-812D-B36602312B81}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0AACB74F-0A81-4CD2-83B6-EF912E6642BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AACB74F-0A81-4CD2-83B6-EF912E6642BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AACB74F-0A81-4CD2-83B6-EF912E6642BF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0AACB74F-0A81-4CD2-83B6-EF912E6642BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AACB74F-0A81-4CD2-83B6-EF912E6642BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AACB74F-0A81-4CD2-83B6-EF912E6642BF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06BF25DE-5E32-4FEF-8AC1-7A6BF617CD6A}
+	EndGlobalSection
+EndGlobal
