@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Pethouse.Models;
-using RestSharp;
 using System;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
-using Xamarin.Essentials;
 
 namespace Pethouse
 {
@@ -29,7 +26,6 @@ namespace Pethouse
                 {
                     UserName = userName.Text,
                     PassWord = pwdEntryOne.Text
-
                 };
                 //Initialize http client
                 HttpClient client = new HttpClient();
@@ -50,12 +46,10 @@ namespace Pethouse
                     LoginInfo.LoggedIn = true;
                     //await DisplayAlert("Login status", "Success!", "OK");
                     await Navigation.PushModalAsync(new MainPage());
-                    
                 }
                 else
                 {
                     await DisplayAlert("Login status", "Not Successfull!", "OK");
-
                 }
             }
             catch (Exception exception)

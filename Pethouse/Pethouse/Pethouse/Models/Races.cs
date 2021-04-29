@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pethouse.Models
+﻿namespace Pethouse.Models
 {
-    class Races
+    internal class Races
     {
         public int RaceId { get; set; }
         public string Racename { get; set; }
-
     }
 }

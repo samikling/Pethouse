@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Pethouse.Models
 {
-    class Pets
+    public class Pets
     {
         public int PetId { get; set; }
         public string Petname { get; set; }
@@ -12,6 +10,6 @@ namespace Pethouse.Models
         public string Photo { get; set; }
         public int UserId { get; set; }
         public int? RaceId { get; set; }
-        public int? BreedId { get; set; }    
+        public int? BreedId { get; set; }
     }
 }

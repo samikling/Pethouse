@@ -5,11 +5,13 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Your pets:" FontSize="Title" HorizontalOptions="CenterAndExpand"></Label>
-        
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
+            <Button Text="Placeholder"></Button>
+
+            <StackLayout>
+                <Label Text="Pets list:"
+                VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />
+                <ListView x:Name="petsList" IsPullToRefreshEnabled="True" Header="Testing"></ListView>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
