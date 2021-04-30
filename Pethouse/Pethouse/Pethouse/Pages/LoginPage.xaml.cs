@@ -39,14 +39,24 @@ namespace Pethouse
                 //Response handling
                 string reply = await message.Content.ReadAsStringAsync();
 
-                bool success = JsonConvert.DeserializeObject<bool>(reply);
+                Login obj = JsonConvert.DeserializeObject<Login>(reply);
+               
+                Console.WriteLine(obj.ToString());
 
-                if (success)
+                //bool success = JsonConvert.DeserializeObject<bool>(reply);
+
+                if (obj != null)
                 {
+                    obj.UserId = LoginInfo.UserId;
                     LoginInfo.LoggedIn = true;
-                    //await DisplayAlert("Login status", "Success!", "OK");
                     await Navigation.PushModalAsync(new MainPage());
                 }
+                //if (success)
+                //{
+                //    LoginInfo.LoggedIn = true;
+                //    //await DisplayAlert("Login status", "Success!", "OK");
+                //    await Navigation.PushModalAsync(new MainPage());
+                //}
                 else
                 {
                     await DisplayAlert("Login status", "Not Successfull!", "OK");
