@@ -8,11 +8,18 @@
             <Button Text="Placeholder"></Button>
 
             <StackLayout>
-                <Label Text="Pets list:"
+                <Label Text="My dogs:"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />
-                <ListView x:Name="petsList" IsPullToRefreshEnabled="True" Header="Testing"></ListView>
-            </StackLayout>
+                <ListView x:Name="dogListView"></ListView>
+             </StackLayout>
+                <StackLayout>
+                <Label Text="My cats:" ></Label>
+                    <CollectionView x:Name="catListView" ></CollectionView>
+                </StackLayout>
+            <StackLayout>
+                <CollectionView x:Name="testListView"></CollectionView></StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

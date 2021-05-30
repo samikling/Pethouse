@@ -47,7 +47,8 @@ namespace Pethouse
 
                 if (obj != null)
                 {
-                    obj.UserId = LoginInfo.UserId;
+                    //obj.UserId = LoginInfo.UserId;
+                    LoginInfo.UserId = obj.UserId.Value;
                     LoginInfo.LoggedIn = true;
                     await Navigation.PushModalAsync(new MainPage());
                 }
