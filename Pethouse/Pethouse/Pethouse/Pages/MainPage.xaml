@@ -8,7 +8,7 @@
             <Button Text="Placeholder"></Button>
 
             <StackLayout>
-                <ListView HasUnevenRows="True" ItemSelected="PetsList_ItemSelected" x:Name="petsList" StyleClass="lista" SelectionMode="Single">
+                <ListView HasUnevenRows="True" ItemSelected="petsList_ItemSelected" x:Name="petsList" StyleClass="lista" SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
