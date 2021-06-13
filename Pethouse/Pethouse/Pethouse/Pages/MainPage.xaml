@@ -5,10 +5,9 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Your pets:" FontSize="Title" HorizontalOptions="CenterAndExpand"></Label>
-            <Button Text="Placeholder"></Button>
 
             <StackLayout>
-                <ListView HasUnevenRows="True" ItemSelected="petsList_ItemSelected" x:Name="petsList" StyleClass="lista" SelectionMode="Single">
+                <ListView IsVisible="True" HasUnevenRows="True" ItemSelected="petsList_ItemSelected" x:Name="petsList" StyleClass="lista" SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -21,9 +20,9 @@
                                                 HorizontalOptions="Center"
                                                 Padding="0"
                                                 IsClippedToBounds="True">
-                                            
-                                        <Image Source="{Binding Photo}" />
-                                        
+
+                                            <Image Source="{Binding Photo}" />
+
                                         </Frame>
                                         <Label HorizontalOptions="EndAndExpand" Text="{Binding Petname}"
                                 TextColor="Black" />
@@ -35,13 +34,10 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
                 </ListView>
+                <Button IsVisible="false" x:Name="addPetBtn" Text="Add a new pet"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
-                        <!--<DataTemplate>
-                            
-                            <ImageCell ImageSource="{Binding Photo}" Text="{Binding Petname}" Detail="Doggo" />
-                        </DataTemplate>-->
+                        

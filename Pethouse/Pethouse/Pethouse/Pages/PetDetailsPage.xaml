@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pethouse.Pages.PetDetailsPage">
+    <ContentPage.Content>
+        <StackLayout x:Name="petStack">
+            <Frame BackgroundColor="LightSlateGray" Padding="24" CornerRadius="0">
+                <Label x:Name="nameLabel" Text="{Binding Petname}"  HorizontalTextAlignment="Center" TextColor="White" FontSize="36" />
+            </Frame>
+            <ContentView>
+                <ContentView.Content>
+                    <TableView x:Name="petTable">
+                        <TableRoot>
+                            <TableSection>
+                                <ImageCell ImageSource="{Binding Photo}"></ImageCell>
+                                <TextCell x:Name="petRace" Text="Race: " Detail=""></TextCell>
+                                <TextCell x:Name="petBreed" Text="Breed: " Detail=""></TextCell>
+                                <TextCell Text="Birthdate: " Detail="{Binding Birthdate}"></TextCell>
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                </ContentView.Content>
+            </ContentView>
+
+            <Label x:Name="raceLabel" Text="{Binding Race}" HorizontalOptions="Center"/>
+            <Label x:Name="breedLabel" Text="{Binding Breed}" HorizontalOptions="Center"/>
+            <Label x:Name="bdLabel" Text="{Binding Birthdate}" HorizontalOptions="Center"/>
+                
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
