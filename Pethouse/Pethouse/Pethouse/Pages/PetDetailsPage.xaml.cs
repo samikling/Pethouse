@@ -16,6 +16,7 @@ namespace Pethouse.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PetDetailsPage : ContentPage
     {
+        Pethouse.Models.Breeds model = new Pethouse.Models.Breeds();
         int petId;
         public PetDetailsPage(int idParam)
         {
@@ -26,6 +27,7 @@ namespace Pethouse.Pages
         private async void LoadDetails(object sender, EventArgs e)
         {
             Pets pet = new Pets();
+            //Breeds breed = new Breeds();
             //Get pet details from database
             HttpClient client = new HttpClient
             {
@@ -33,7 +35,8 @@ namespace Pethouse.Pages
             };
             string json = await client.GetStringAsync("/api/pets/" + petId);
             Pets pets = JsonConvert.DeserializeObject<Pets>(json);
-
+            string json2 = await client.GetStringAsync("/api/Breeds/" + pets.BreedId);
+            Breeds breed = JsonConvert.DeserializeObject<Breeds>(json2);
             //IEnumerable<Pets> pets = JsonConvert.DeserializeObject<Pets[]>(json);
             //ObservableCollection<Pets> dataa = new ObservableCollection<Pets>(pets);
             try
@@ -51,9 +54,7 @@ namespace Pethouse.Pages
                 }
                 //Get breed function
                 //!!!TODO!!!
-                petBreed.Detail = pets.Breed.ToString();
-                
-
+                petBreed.Detail = breed.Breedname;
             }
             catch (Exception ex)
             {

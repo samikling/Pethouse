@@ -62,5 +62,11 @@ namespace Pethouse
             int id = pet.PetId;
             _ = Navigation.PushModalAsync(new PetDetailsPage(id));
         }
+
+        private void addPetBtn_Clicked(object sender, EventArgs e)
+        {
+            //TODO!
+            //Goto Add new pet page
+        }
     }
 }
