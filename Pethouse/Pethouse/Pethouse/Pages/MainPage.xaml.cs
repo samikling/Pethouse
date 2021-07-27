@@ -65,6 +65,7 @@ namespace Pethouse
 
         private void addPetBtn_Clicked(object sender, EventArgs e)
         {
+            _ = Navigation.PushModalAsync(new AddPetPage());
             //TODO!
             //Goto Add new pet page
         }

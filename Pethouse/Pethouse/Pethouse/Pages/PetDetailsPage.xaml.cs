@@ -27,18 +27,22 @@ namespace Pethouse.Pages
         private async void LoadDetails(object sender, EventArgs e)
         {
             Pets pet = new Pets();
-            //Breeds breed = new Breeds();
-            //Get pet details from database
             HttpClient client = new HttpClient
             {
                 BaseAddress = new Uri("https://pethouse.azurewebsites.net/")
             };
-            string json = await client.GetStringAsync("/api/pets/" + petId);
-            Pets pets = JsonConvert.DeserializeObject<Pets>(json);
-            string json2 = await client.GetStringAsync("/api/Breeds/" + pets.BreedId);
-            Breeds breed = JsonConvert.DeserializeObject<Breeds>(json2);
-            //IEnumerable<Pets> pets = JsonConvert.DeserializeObject<Pets[]>(json);
-            //ObservableCollection<Pets> dataa = new ObservableCollection<Pets>(pets);
+            //Load pet
+            string jsonPet = await client.GetStringAsync("/api/pets/" + petId);
+            Pets pets = JsonConvert.DeserializeObject<Pets>(jsonPet);
+            //Load breed information
+            string jsonBreed = await client.GetStringAsync("/api/Breeds/" + pets.BreedId);
+            Breeds breed = JsonConvert.DeserializeObject<Breeds>(jsonBreed);
+            //Load Vaccines
+            string jsonVaccines = await client.GetStringAsync("/api/Vaccines/" + petId);
+            Vaccines vaccines = JsonConvert.DeserializeObject<Vaccines>(jsonVaccines);
+            //Load Medicines
+            string jsonMedications = await client.GetStringAsync("/api/Medications/" + petId);
+            Medications medications = JsonConvert.DeserializeObject<Medications>(jsonMedications);
             try
             {
                 petTable.BindingContext = pets;

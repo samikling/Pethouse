@@ -21,11 +21,14 @@
                     </TableView>
                 </ContentView.Content>
             </ContentView>
-
+            <ListView>
+                
+            </ListView>
+<!--
             <Label x:Name="raceLabel" Text="{Binding Race}" HorizontalOptions="Center"/>
             <Label x:Name="breedLabel" Text="{Binding Breed}" HorizontalOptions="Center"/>
             <Label x:Name="bdLabel" Text="{Binding Birthdate}" HorizontalOptions="Center"/>
-                
+ -->               
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
