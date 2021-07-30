@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Pethouse.Models;
-using RestSharp;
 using System;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
-using Xamarin.Essentials;
 
 namespace Pethouse
 {
@@ -29,7 +26,6 @@ namespace Pethouse
                 {
                     UserName = userName.Text,
                     PassWord = pwdEntryOne.Text
-
                 };
                 //Initialize http client
                 HttpClient client = new HttpClient();
@@ -39,29 +35,32 @@ namespace Pethouse
                 StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
                 //Send serialised data as json
                 HttpResponseMessage message = await client.PostAsync("/api/users", content);
+                
 
                 //Response handling
                 string reply = await message.Content.ReadAsStringAsync();
-
-                bool success = JsonConvert.DeserializeObject<bool>(reply);
-
-                if (success)
+                try
                 {
+
+
+                Login obj = JsonConvert.DeserializeObject<Login>(reply);
+               
+                //Console.WriteLine(obj.ToString());
+
+                //bool success = JsonConvert.DeserializeObject<bool>(reply);
+
+                    LoginInfo.UserId = obj.UserId.Value;
                     LoginInfo.LoggedIn = true;
-                    //await DisplayAlert("Login status", "Success!", "OK");
                     await Navigation.PushModalAsync(new MainPage());
-                    
                 }
-                else
+                catch
                 {
                     await DisplayAlert("Login status", "Not Successfull!", "OK");
-
                 }
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
-                throw;
+              await  DisplayAlert("Unexpected error!\n" +exception.ToString(), "Please try again.", "Close");
             }
         }
     }

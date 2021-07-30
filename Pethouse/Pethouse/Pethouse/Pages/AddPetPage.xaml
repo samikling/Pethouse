@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pethouse.Pages.AddPetPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Add a new pet" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="photoButton" Text="Photo: "></Button>
+            <Entry Placeholder="Name:" x:Name="nameEntry"></Entry>
+            <Picker Title="Race:" x:Name="racePicker"></Picker>
+            <Picker Title="Breed:" x:Name="breedPicker"></Picker>
+            <Label Text="Select date of birth: "></Label>
+            <DatePicker x:Name="bdatePicker"></DatePicker>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
