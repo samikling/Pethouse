@@ -37,12 +37,18 @@ namespace Pethouse.Pages
             //Load breed information
             string jsonBreed = await client.GetStringAsync("/api/Breeds/" + pets.BreedId);
             Breeds breed = JsonConvert.DeserializeObject<Breeds>(jsonBreed);
+            //TODO!!!
+            //Implement to API:
+            //GET Vaccines
+            //GET Medicines
+
+            
             //Load Vaccines
-            string jsonVaccines = await client.GetStringAsync("/api/Vaccines/" + petId);
-            Vaccines vaccines = JsonConvert.DeserializeObject<Vaccines>(jsonVaccines);
+            //string jsonVaccines = await client.GetStringAsync("/api/Vaccines/" + petId);
+            //Vaccines vaccines = JsonConvert.DeserializeObject<Vaccines>(jsonVaccines);
             //Load Medicines
-            string jsonMedications = await client.GetStringAsync("/api/Medications/" + petId);
-            Medications medications = JsonConvert.DeserializeObject<Medications>(jsonMedications);
+            //string jsonMedications = await client.GetStringAsync("/api/Medications/" + petId);
+            //Medications medications = JsonConvert.DeserializeObject<Medications>(jsonMedications);
             try
             {
                 petTable.BindingContext = pets;
