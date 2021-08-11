@@ -42,13 +42,17 @@ namespace Pethouse.Pages
             //GET Vaccines
             //GET Medicines
 
-            
+
             //Load Vaccines
-            //string jsonVaccines = await client.GetStringAsync("/api/Vaccines/" + petId);
+            string jsonVaccines = await client.GetStringAsync("/api/Vaccines/" + petId);
             //Vaccines vaccines = JsonConvert.DeserializeObject<Vaccines>(jsonVaccines);
+            List<Vaccines> vaccines = JsonConvert.DeserializeObject<List<Vaccines>>(jsonVaccines);
+
+            listVacs.BindingContext = vaccines;
+            
             //Load Medicines
-            //string jsonMedications = await client.GetStringAsync("/api/Medications/" + petId);
-            //Medications medications = JsonConvert.DeserializeObject<Medications>(jsonMedications);
+            string jsonMedications = await client.GetStringAsync("/api/Medications/" + petId);
+            Medications medications = JsonConvert.DeserializeObject<Medications>(jsonMedications);
             try
             {
                 petTable.BindingContext = pets;
