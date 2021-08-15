@@ -37,7 +37,7 @@ namespace Pethouse
 
         private async void LoadPets(object sender, EventArgs e)
         {
-            
+
             //YourPets = new List<Pets>();
             //Pets pets = new Pets();
             HttpClient client = new HttpClient(); //Metodin alustus, jolla yhdistetään API:n

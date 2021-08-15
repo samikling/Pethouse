@@ -21,14 +21,25 @@
                     </TableView>
                 </ContentView.Content>
             </ContentView>
-            <ListView x:Name="listVacs" ItemsSource="{Binding}"/>
+            <TableView>
+                <TableRoot>
+                    <TableSection Title="Vaccines">
+                        <TextCell  x:Name="txtCellVacName" Text="Vaccine: " Detail="" />
+                        <TextCell x:Name="txtCellVacDate" Text="Date: " Detail=""/>
+                    </TableSection>
+                    <TableSection Title="Medications">
+                        <TextCell x:Name="txtCellMedName" Text="Medicine: " Detail="" />
+                        <TextCell x:Name="txtCellMedDate" Text="Date: " Detail=""/>
+                    </TableSection>
+                    <TableSection Title="Grooming">
+                        <TextCell x:Name="txtCellGroomName" Text="Treatment: " Detail="" />
+                        <TextCell x:Name="txtCellGroomDate" Text="Date: " Detail=""/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
 
 
-            <!--
-            <Label x:Name="raceLabel" Text="{Binding Race}" HorizontalOptions="Center"/>
-            <Label x:Name="breedLabel" Text="{Binding Breed}" HorizontalOptions="Center"/>
-            <Label x:Name="bdLabel" Text="{Binding Birthdate}" HorizontalOptions="Center"/>
- -->               
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

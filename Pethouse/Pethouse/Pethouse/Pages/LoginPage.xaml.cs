@@ -35,7 +35,7 @@ namespace Pethouse
                 StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
                 //Send serialised data as json
                 HttpResponseMessage message = await client.PostAsync("/api/users", content);
-                
+
 
                 //Response handling
                 string reply = await message.Content.ReadAsStringAsync();
@@ -43,11 +43,11 @@ namespace Pethouse
                 {
 
 
-                Login obj = JsonConvert.DeserializeObject<Login>(reply);
-               
-                //Console.WriteLine(obj.ToString());
+                    Login obj = JsonConvert.DeserializeObject<Login>(reply);
 
-                //bool success = JsonConvert.DeserializeObject<bool>(reply);
+                    //Console.WriteLine(obj.ToString());
+
+                    //bool success = JsonConvert.DeserializeObject<bool>(reply);
 
                     LoginInfo.UserId = obj.UserId.Value;
                     LoginInfo.LoggedIn = true;
@@ -60,7 +60,7 @@ namespace Pethouse
             }
             catch (Exception exception)
             {
-              await  DisplayAlert("Unexpected error!\n" +exception.ToString(), "Please try again.", "Close");
+                await DisplayAlert("Unexpected error!\n" + exception.ToString(), "Please try again.", "Close");
             }
         }
     }
