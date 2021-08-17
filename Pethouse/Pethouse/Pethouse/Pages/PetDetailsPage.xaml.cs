@@ -70,13 +70,13 @@ namespace Pethouse.Pages
                 {
                     petRace.Detail = "Unknown";
                 }
-                petBreed.Detail = breed.Breedname;
+                petBreed.Detail = breed.Breedname.ToString();
 
                 //Setting Treatment info
                 //Vaccines
                 if (vaccines.Vacname != null)
                 {
-                    txtCellVacName.Detail = vaccines.Vacname;
+                    txtCellVacName.Detail = vaccines.Vacname.ToString();
                 }
                 else
                 {
@@ -94,7 +94,7 @@ namespace Pethouse.Pages
                 //Medications
                 if (medications != null)
                 {
-                    txtCellMedName.Detail = medications.Medname;
+                    txtCellMedName.Detail = medications.Medname.ToString();
                 }
                 else
                 {
@@ -111,7 +111,7 @@ namespace Pethouse.Pages
                 //Treatments
                 if (grooming != null)
                 {
-                    txtCellGroomName.Detail = grooming.Groomname;
+                    txtCellGroomName.Detail = grooming.Groomname.ToString();
                 }
                 else
                 {
