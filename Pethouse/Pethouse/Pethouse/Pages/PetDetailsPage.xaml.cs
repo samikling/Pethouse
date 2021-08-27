@@ -132,12 +132,60 @@ namespace Pethouse.Pages
                 Debug.WriteLine("Virhe " + ex);
             }
         }
+
+        private async void Delete_Button_Clicked(object sender, EventArgs e)
+        {
+            bool response = await DisplayAlert("Delete " + petId + "?", "Really Delete?", "Yes", "No");
+            Console.WriteLine("Save data: " + response);
+            HttpClient client = new HttpClient
+            {
+                BaseAddress = new Uri("https://pethouse.azurewebsites.net/")
+            };
+            //Delete pet
+            try
+            {
+            if (response)
+            {
+                HttpResponseMessage message = await client.DeleteAsync("/api/pets/" + petId);
+                if (message.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("OK", "The pet with id " + petId + " was deleted.", "Ok");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Cancelled", "The pet with id " + petId + " was not deleted.", "Ok");
+            }
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message.ToString();
+                await DisplayAlert("Error", error, "Ok");
+            }
+        }
     }
 }
 /*!!!TODO:
+ * 
+ * OLD:
  * Näkyy vähän hölmösti tiedot tällä hetkellä.
  * Voisi yrittää saada niitä näkymään vähän järkevämmin
  * 
  * Pitää miettiä mikä on järkevin tapa, että käyttäjä lähtee muokkaamaan ja syöttämään uusia tietoja
  * Onko se painamalla rokote kohtaa, vai lisätäänkö erillinen nappi tätä varten´?
+ * 
+ * 27.8.2021
+ * Delete nappi toimii. Seuraavaksi täytyy muuttaa toimintoa niin, että deletoimisen jälkeen palataan
+ * main view sivulle ja päivitetäään lista. Listan päivitys täytyy lisätä myös lemmikin lisäyksen ja muokkauksen jälkeen.
+ * Muita tekemättömiä asioita:
+ * - Login ikkunan piilotus kirjautumisen jälkeen
+ * - Uuden käyttäjän luominen
+ * - Lemmikin editoiminen
+ * - Rokotteiden, lääkkeiden ja hoitojen lisäys, muokkaus ja poisto
+ * - Muistutustoiminto
+ * - Valokuvatoiminto tai vastaava
+ * 
+ *
+ * 
  */
