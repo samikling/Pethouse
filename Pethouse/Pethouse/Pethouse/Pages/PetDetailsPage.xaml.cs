@@ -19,6 +19,12 @@ namespace Pethouse.Pages
             petId = idParam;
             LoadDetails(null, null);
         }
+        /// <summary>
+        /// public void LoadDetails(object, EventArgs)
+        /// Mystisesti tämä hajosi kun lemmikin lisäys toisella sivulla alkoi toimia. Tutki ja korjaa....
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void LoadDetails(object sender, EventArgs e)
         {
             Pets pet = new Pets();
