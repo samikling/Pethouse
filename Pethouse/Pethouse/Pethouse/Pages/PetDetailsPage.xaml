@@ -40,7 +40,7 @@
             </TableView>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Button BackgroundColor="LightSkyBlue" Text="Edit" HorizontalOptions="StartAndExpand"></Button>
+                <Button x:Name="editButton" BackgroundColor="LightSkyBlue" Text="Edit" HorizontalOptions="StartAndExpand" Clicked="Edit_Button_Clicked"></Button>
                 <Button x:Name="deleteButton" BackgroundColor = "IndianRed" Text="Delete" HorizontalOptions="EndAndExpand" Clicked="Delete_Button_Clicked" ></Button>
             </StackLayout>
 

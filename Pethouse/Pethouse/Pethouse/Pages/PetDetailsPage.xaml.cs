@@ -170,6 +170,11 @@ namespace Pethouse.Pages
                 await DisplayAlert("Error", error, "Ok");
             }
         }
+
+        private void Edit_Button_Clicked(object sender, EventArgs e)
+        {
+            _ = Navigation.PushModalAsync(new EditPetPage(petId));
+        }
     }
 }
 /*!!!TODO:
