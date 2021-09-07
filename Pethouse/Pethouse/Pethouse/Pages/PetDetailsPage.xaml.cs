@@ -150,18 +150,18 @@ namespace Pethouse.Pages
             //Delete pet
             try
             {
-            if (response)
-            {
-                HttpResponseMessage message = await client.DeleteAsync("/api/pets/" + petId);
-                if (message.IsSuccessStatusCode)
+                if (response)
                 {
-                    await DisplayAlert("OK", "The pet with id " + petId + " was deleted.", "Ok");
+                    HttpResponseMessage message = await client.DeleteAsync("/api/pets/" + petId);
+                    if (message.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("OK", "The pet with id " + petId + " was deleted.", "Ok");
+                    }
                 }
-            }
-            else
-            {
-                await DisplayAlert("Cancelled", "The pet with id " + petId + " was not deleted.", "Ok");
-            }
+                else
+                {
+                    await DisplayAlert("Cancelled", "The pet with id " + petId + " was not deleted.", "Ok");
+                }
 
             }
             catch (Exception ex)

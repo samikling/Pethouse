@@ -1,13 +1,12 @@
 ﻿
 using Newtonsoft.Json;
+using Pethouse.Models;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Pethouse.Models;
-using System.Collections.Generic;
-using Xamarin.Forms.Internals;
-using System.Text;
 
 namespace Pethouse.Pages
 {
@@ -41,14 +40,14 @@ namespace Pethouse.Pages
         }
         public async void LoadRaces()
         {
-            
+
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
             string json = await client.GetStringAsync("/api/races/");
             races = JsonConvert.DeserializeObject<List<Races>>(json);
-            
+
             List<string> raceList = new List<string>();
-            foreach(Races race in races)
+            foreach (Races race in races)
             {
                 raceList.Add(race.Racename);
             }
@@ -56,14 +55,14 @@ namespace Pethouse.Pages
         }
         public async void LoadBreeds(object sender, EventArgs e)
         {
-            
+
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
             string json = await client.GetStringAsync("/api/breeds/");
             breedsList = JsonConvert.DeserializeObject<List<Breeds>>(json);
-      
+
             List<String> breed = new List<String>();
-            foreach(Breeds breeds in breedsList)
+            foreach (Breeds breeds in breedsList)
             {
                 if (racePicker.SelectedItem.Equals("Dog") || racePicker.SelectedItem.Equals(1))
                 {
@@ -83,7 +82,7 @@ namespace Pethouse.Pages
                 }
             }
             breedPicker.ItemsSource = breed;
-          
+
 
         }
         /*
@@ -94,9 +93,7 @@ namespace Pethouse.Pages
          * -------------------------------------------------------------------------
          * TODO:
          * -------------------------------------------------------------------------
-         * Seuraavaksi selvitys, miten tiedot viedään kantaan, nyt kun kaikki tar-
-         * vittavat tiedot saadaan poimittua käyttöliittymästä. Pitää myös selvit-
-         * tää mitä tehdään valokuva toiminnon kanssa.
+         * Pitää myös selvittää mitä tehdään valokuva toiminnon kanssa.
          * -------------------------------------------------------------------------
          */
         public async void AddPet(object sender, EventArgs e)
@@ -105,7 +102,7 @@ namespace Pethouse.Pages
             int raceIdmem = 0;
             raceIdmem = races[racePicker.SelectedIndex].RaceId;
             breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId;
-            
+
             debugEntry.Text = LoginInfo.UserId.ToString()
                 + nameEntry.Text + bdatePicker.Date.ToString() +
                 raceIdmem.ToString() + breedIdmem.ToString();
@@ -136,7 +133,7 @@ namespace Pethouse.Pages
 
                 //Asetetaan vastaus serialisoituna success muuttujaan
                 bool success = JsonConvert.DeserializeObject<bool>(reply);
-                
+
 
                 if (success)  // Näytetään ehdollisesti alert viesti
                 {
@@ -160,12 +157,12 @@ namespace Pethouse.Pages
             }
         }
 
-            
-            
 
 
 
-        
+
+
+
 
         private void racePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
