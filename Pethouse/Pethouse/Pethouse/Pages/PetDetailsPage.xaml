@@ -21,14 +21,31 @@
                     </TableView>
                 </ContentView.Content>
             </ContentView>
-            <ListView>
-                
-            </ListView>
-<!--
-            <Label x:Name="raceLabel" Text="{Binding Race}" HorizontalOptions="Center"/>
-            <Label x:Name="breedLabel" Text="{Binding Breed}" HorizontalOptions="Center"/>
-            <Label x:Name="bdLabel" Text="{Binding Birthdate}" HorizontalOptions="Center"/>
- -->               
+            <StackLayout>
+            <TableView>
+                <TableRoot>
+                    <TableSection Title="Vaccines">
+                        <TextCell  x:Name="txtCellVacName" Text="Vaccine: " Detail="" />
+                        <TextCell x:Name="txtCellVacDate" Text="Date: " Detail=""/>
+                    </TableSection>
+                    <TableSection Title="Medications">
+                        <TextCell x:Name="txtCellMedName" Text="Medicine: " Detail="" />
+                        <TextCell x:Name="txtCellMedDate" Text="Date: " Detail=""/>
+                    </TableSection>
+                    <TableSection Title="Grooming">
+                        <TextCell x:Name="txtCellGroomName" Text="Treatment: " Detail="" />
+                        <TextCell x:Name="txtCellGroomDate" Text="Date: " Detail=""/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="editButton" BackgroundColor="LightSkyBlue" Text="Edit" HorizontalOptions="StartAndExpand" Clicked="Edit_Button_Clicked"></Button>
+                <Button x:Name="addTreatmentButton" BackgroundColor="LimeGreen" Text="New treatment" HorizontalOptions="CenterAndExpand" Clicked="addTreatmentButton_Clicked"></Button>
+                <Button x:Name="deleteButton" BackgroundColor = "IndianRed" Text="Delete" HorizontalOptions="EndAndExpand" Clicked="Delete_Button_Clicked" ></Button>
+            </StackLayout>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -8,10 +8,13 @@
                 HorizontalOptions="CenterAndExpand" />
             <Button x:Name="photoButton" Text="Photo: "></Button>
             <Entry Placeholder="Name:" x:Name="nameEntry"></Entry>
-            <Picker Title="Race:" x:Name="racePicker"></Picker>
-            <Picker Title="Breed:" x:Name="breedPicker"></Picker>
+            <Picker Title="Race:" x:Name="racePicker" SelectedIndexChanged="racePicker_SelectedIndexChanged"></Picker>
+            <Picker Title="Breed:" x:Name="breedPicker" ></Picker>
             <Label Text="Select date of birth: "></Label>
             <DatePicker x:Name="bdatePicker"></DatePicker>
+            <Entry Placeholder="Debug: " x:Name="debugEntry" ></Entry>
+            <Entry Placeholder="Debug: " x:Name="debugEntry2" ></Entry>
+            <Button Text="Add" x:Name="addButton" Clicked="AddPet"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
