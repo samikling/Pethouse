@@ -35,7 +35,10 @@ namespace Pethouse.Pages
             InitializeComponent();
             petId = idParam;
             LoadPet(idParam, null); //PetID
-
+            if (OnBackButtonPressed())
+            {
+                _ = Navigation.PushAsync(new MainPage());
+            }
 
         }
         /// <summary>
@@ -189,6 +192,8 @@ namespace Pethouse.Pages
                 if (success)  // Näytetään ehdollisesti alert viesti
                 {
                     await DisplayAlert("Pet with ID:" + petId + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                    MainPage mainPage = new MainPage();
+                    mainPage.LoadPets(LoginInfo.UserId, null);
                 }
                 else
                 {

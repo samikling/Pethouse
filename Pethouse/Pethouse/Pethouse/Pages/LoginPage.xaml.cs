@@ -12,10 +12,12 @@ namespace Pethouse
         public LoginPage()
         {
             InitializeComponent();
-            if (LoginInfo.LoggedIn)
-            {
-                Navigation.PushModalAsync(new MainPage());
-            }
+            //Placeholder for later use
+            //if (LoginInfo.LoggedIn)
+            //{
+               
+            //    Navigation.PopModalAsync();
+            //}
         }
 
         private async void LoginBtn_OnClicked(Object sender, EventArgs e)
@@ -39,20 +41,16 @@ namespace Pethouse
 
                 //Response handling
                 string reply = await message.Content.ReadAsStringAsync();
+
                 try
                 {
-
-
                     Login obj = JsonConvert.DeserializeObject<Login>(reply);
-
-                    //Console.WriteLine(obj.ToString());
-
-                    //bool success = JsonConvert.DeserializeObject<bool>(reply);
-
                     LoginInfo.UserId = obj.UserId.Value;
-                    LoginInfo.LoggedIn = true;
-                    await Navigation.PushModalAsync(new MainPage());
+                    LoginInfo.LoggedIn = true;                    
+                    await Navigation.PopAsync();
+                    
                 }
+                //Error handling
                 catch
                 {
                     await DisplayAlert("Login status", "Not Successfull!", "OK");

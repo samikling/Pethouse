@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pethouse.Pages.VaccinesPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Add a new pet" 
+                HorizontalOptions="CenterAndExpand" />
+           
+            <Entry Placeholder="Vaccine name:" x:Name="nameEntry"></Entry>
+            
+            <Label Text="Vaccination date: "></Label>
+            <DatePicker x:Name="vacDatePicker"></DatePicker>
+            <Label Text="Vaccination expirationdate: "></Label>
+            <DatePicker x:Name="vacExpDatePicker"></DatePicker>
+            
+            <Button Text="Add Vaccination" x:Name="addButton" Clicked="addButton_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

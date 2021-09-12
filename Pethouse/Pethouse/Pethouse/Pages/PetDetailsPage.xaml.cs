@@ -175,6 +175,24 @@ namespace Pethouse.Pages
         {
             _ = Navigation.PushModalAsync(new EditPetPage(petId));
         }
+
+        private async void addTreatmentButton_Clicked(object sender, EventArgs e)
+        {
+            string action = await DisplayActionSheet("What type of treatment would you like to add?", "Cancel", null, "Vaccine", "Medication", "Treatment");
+            if (action == "Vaccine")
+            {
+                _ = Navigation.PushModalAsync(new VaccinesPage(petId));
+
+            }else if (action == "Medication")
+            {
+                _ = Navigation.PushModalAsync(new MediacationsPage()); //add pet id as parameter
+            }
+            else if (action == "Treatment")
+            {
+                _ = Navigation.PushModalAsync(new GrooomingPage());  //add pet id as parameter
+            }
+            
+        }
     }
 }
 /*!!!TODO:

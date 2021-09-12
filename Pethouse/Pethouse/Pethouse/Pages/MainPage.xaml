@@ -7,7 +7,7 @@
             <Label Text="Your pets:" FontSize="Title" HorizontalOptions="CenterAndExpand"></Label>
 
             <StackLayout>
-                <ListView IsVisible="True" HasUnevenRows="True" ItemSelected="petsList_ItemSelected" x:Name="petsList" StyleClass="lista" SelectionMode="Single">
+                <ListView HasUnevenRows="True" ItemSelected="petsList_ItemSelected" x:Name="petsList" StyleClass="lista" SelectionMode="Single" IsRefreshing="{Binding IsRefreshing}" RefreshCommand="{Binding RefreshCommand}" IsPullToRefreshEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
