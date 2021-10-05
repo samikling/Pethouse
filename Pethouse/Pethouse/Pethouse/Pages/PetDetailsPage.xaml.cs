@@ -80,9 +80,9 @@ namespace Pethouse.Pages
 
                 //Setting Treatment info
                 //Vaccines
-                if (vaccines.Vacname != null)
+                if (vaccines != null)
                 {
-                    txtCellVacName.Detail = vaccines.Vacname.ToString();
+                    txtCellVacName.Detail = vaccines.Vacname;
                 }
                 else
                 {

@@ -14,7 +14,9 @@ namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VaccinesPage : ContentPage
-    {   int id = 0;
+    {  private int id = 0;
+        private string debugSection;
+
         public VaccinesPage(int petId)
         {
             id = petId;
@@ -33,19 +35,24 @@ namespace Pethouse.Pages
             };
             try
             {
+                
                 //Datan serialisointi ja vienti API:lle
+                debugSection = " Serialize";
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
                 string input = JsonConvert.SerializeObject(vacs);
                 StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
 
                 // Lähetetään serialisoitu objekti back-endiin Post pyyntönä
+                debugSection = " Send Serialized object";
                 HttpResponseMessage message = await client.PostAsync("/api/vaccines/", content);
 
                 // Otetaan vastaan palvelimen vastaus
+                debugSection = " wait and read reply" + content;
                 string reply = await message.Content.ReadAsStringAsync();
 
                 //Asetetaan vastaus serialisoituna success muuttujaan
+                debugSection = " take reply and set to bool " + reply;
                 bool success = JsonConvert.DeserializeObject<bool>(reply);
 
 
@@ -63,9 +70,10 @@ namespace Pethouse.Pages
             }
             catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
             {
-
+                nameEntry.Text = debugSection;
                 string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
                 string errorMessage2 = ex.Message;
+                await DisplayAlert(errorMessage1, errorMessage2, "Error");
                 //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
                 //debugEntry2.Text = errorMessage2;
             }
