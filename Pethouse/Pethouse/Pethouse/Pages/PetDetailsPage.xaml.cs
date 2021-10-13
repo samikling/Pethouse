@@ -148,6 +148,7 @@ namespace Pethouse.Pages
                 BaseAddress = new Uri("https://pethouse.azurewebsites.net/")
             };
             //TODO:
+
             //Delete pets vacs if any
             string jsonRequestVacCount = await client.GetStringAsync("/api/vaccines/list/" + petId);
             int vacCount = JsonConvert.DeserializeObject<int>(jsonRequestVacCount);
@@ -180,8 +181,65 @@ namespace Pethouse.Pages
             }
 
             //Delete pets meds if any
+            string jsonRequestMedCount = await client.GetStringAsync("/api/medications/list/" + petId);
+            int medCount = JsonConvert.DeserializeObject<int>(jsonRequestMedCount);
+            if (medCount > 0)
+            {
+                await DisplayAlert("Pet " + petId, "has " + medCount.ToString() + " Medications.", "Ok");
+                try
+                {
+                    for (int i = 0; i < medCount; i++)
+                    {
+                        try
+                        {
+                            HttpResponseMessage message = await client.DeleteAsync("/api/medications/" + petId);
 
+                        }
+                        catch (Exception ex)
+                        {
+                            string error = ex.Message.ToString();
+                            await DisplayAlert("Error", error, "Ok");
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    string error = ex.Message.ToString();
+                    await DisplayAlert("Error", error, "Ok");
+                }
+
+            }
             //Delete pets treatments if any
+            string jsonRequestGroomCount = await client.GetStringAsync("/api/grooming/list/" + petId);
+            int groomCount = JsonConvert.DeserializeObject<int>(jsonRequestGroomCount);
+            if (groomCount > 0)
+            {
+                await DisplayAlert("Pet " + petId, "has " + medCount.ToString() + " Treatmens.", "Ok");
+                try
+                {
+                    for (int i = 0; i < groomCount; i++)
+                    {
+                        try
+                        {
+                            HttpResponseMessage message = await client.DeleteAsync("/api/grooming/" + petId);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            string error = ex.Message.ToString();
+                            await DisplayAlert("Error", error, "Ok");
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    string error = ex.Message.ToString();
+                    await DisplayAlert("Error", error, "Ok");
+                }
+
+            }
 
             //Delete pet
             try
