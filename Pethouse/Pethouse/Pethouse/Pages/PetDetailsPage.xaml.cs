@@ -82,7 +82,7 @@ namespace Pethouse.Pages
                 //Vaccines
                 if (vaccines != null)
                 {
-                    txtCellVacName.Detail = vaccines.Vacname;
+                    txtCellVacName.Detail = vaccines.Vacname.ToString();
                 }
                 else
                 {
@@ -147,6 +147,42 @@ namespace Pethouse.Pages
             {
                 BaseAddress = new Uri("https://pethouse.azurewebsites.net/")
             };
+            //TODO:
+            //Delete pets vacs if any
+            string jsonRequestVacCount = await client.GetStringAsync("/api/vaccines/list/" + petId);
+            int vacCount = JsonConvert.DeserializeObject<int>(jsonRequestVacCount);
+            if (vacCount > 0)
+            {
+                await DisplayAlert("Pet " + petId, "has " + vacCount.ToString() + " Vaccines.", "Ok");
+                try
+                {
+                    for (int i = 0; i < vacCount; i++)
+                    {
+                        try
+                        {
+                            HttpResponseMessage message = await client.DeleteAsync("/api/vaccines/" + petId);
+
+ }
+                        catch (Exception ex)
+                        {
+                            string error = ex.Message.ToString();
+                            await DisplayAlert("Error", error, "Ok");
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    string error = ex.Message.ToString();
+                    await DisplayAlert("Error", error, "Ok");
+                }
+
+            }
+
+            //Delete pets meds if any
+
+            //Delete pets treatments if any
+
             //Delete pet
             try
             {
