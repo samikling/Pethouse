@@ -13,7 +13,7 @@ namespace Pethouse.Models
         [JsonConstructor]
         public Vaccines(int petId, string vacname, DateTime? vacdate, DateTime? vacexpdate)
         {
-
+            Vacname = vacname;
             PetId = petId;
             VacDate = vacdate;
             VacExpDate = vacexpdate;

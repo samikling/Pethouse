@@ -23,8 +23,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Pages\AddGrooomingPage.xaml.cs">
+      <DependentUpon>AddGrooomingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\AddVaccinesPage.xaml.cs">
+      <DependentUpon>AddVaccinesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\AddMediacationsPage.xaml.cs">
+      <DependentUpon>AddMediacationsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -35,19 +44,19 @@
     <EmbeddedResource Update="Pages\EditPetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\GrooomingPage.xaml">
+    <EmbeddedResource Update="Pages\AddGrooomingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\MediacationsPage.xaml">
+    <EmbeddedResource Update="Pages\AddMediacationsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\PetDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\VaccinesPage.xaml">
+    <EmbeddedResource Update="Pages\AddVaccinesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

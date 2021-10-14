@@ -13,11 +13,11 @@ using Xamarin.Forms.Xaml;
 namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class VaccinesPage : ContentPage
+    public partial class AddVaccinesPage : ContentPage
     {  private int id = 0;
         private string debugSection;
 
-        public VaccinesPage(int petId)
+        public AddVaccinesPage(int petId)
         {
             id = petId;
             InitializeComponent();

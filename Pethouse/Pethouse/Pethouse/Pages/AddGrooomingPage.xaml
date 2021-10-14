@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pethouse.Pages.AddGrooomingPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Add a new operation" 
+                HorizontalOptions="CenterAndExpand" />
+
+            <Entry Placeholder="Treatment name:" x:Name="nameEntry"></Entry>
+
+            <Label Text="Treatment date: "></Label>
+            <DatePicker x:Name="groomDatePicker"></DatePicker>
+            <Label Text="Treatment expirationdate: "></Label>
+            <DatePicker x:Name="groomExpDatePicker"></DatePicker>
+            <Entry Placeholder="Comments:" x:Name="groomCommentsEntry"></Entry>
+
+            <Button Text="Add Treatment" x:Name="addButton" Clicked="addButton_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -21,12 +21,17 @@
                     </TableView>
                 </ContentView.Content>
             </ContentView>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="vaccinesButton" BackgroundColor="LightSkyBlue" Text="Vaccines" HorizontalOptions="StartAndExpand" ></Button>
+                <Button x:Name="medicationsButton" BackgroundColor="LimeGreen" Text="Medications" HorizontalOptions="CenterAndExpand" ></Button>
+                <Button x:Name="groomingButton" BackgroundColor = "IndianRed" Text="Grooming" HorizontalOptions="EndAndExpand"  ></Button>
+            </StackLayout>
             <StackLayout>
-            <TableView>
+            <TableView x:Name="treatmentsTable">
                 <TableRoot>
-                    <TableSection Title="Vaccines">
-                        <TextCell  x:Name="txtCellVacName" Text="Vaccine: " Detail="" />
-                        <TextCell x:Name="txtCellVacDate" Text="Date: " Detail=""/>
+                    <TableSection x:Name="vacSection" Title="Vaccines">
+                        <TextCell  x:Name="txtCellVacName" Text="Vaccine: " Detail="{Binding Vacname}" />
+                        <TextCell x:Name="txtCellVacDate" Text="Date: " Detail="{Binding VacDate}"/>
                     </TableSection>
                     <TableSection Title="Medications">
                         <TextCell x:Name="txtCellMedName" Text="Medicine: " Detail="" />

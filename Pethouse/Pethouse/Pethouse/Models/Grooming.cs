@@ -8,5 +8,6 @@ namespace Pethouse.Models
         public DateTime? GroomDate { get; set; }
         public DateTime? GroomExpDate { get; set; }
         public string Comments { get; set; }
+        public int PetId { get; internal set; }
     }
 }

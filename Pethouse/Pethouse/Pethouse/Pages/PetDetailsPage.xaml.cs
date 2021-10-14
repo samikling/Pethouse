@@ -82,21 +82,30 @@ namespace Pethouse.Pages
                 //Vaccines
                 if (vaccines != null)
                 {
-                    txtCellVacName.Detail = vaccines.Vacname.ToString();
+                    try
+                    {
+                        vacSection.BindingContext = vaccines;
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        await DisplayAlert("Error", ex.ToString() , "ok");
+                    }
+                    //txtCellVacName.Detail = vaccines.Vacname.ToString();
                 }
-                else
+                else if (vaccines != null)
                 {
-                    txtCellVacName.IsEnabled = false;
-                    //txtCellVacName.Detail = "Unknown";
-                }
-                if (vaccines != null)
-                {
+                    txtCellVacName.Detail = vaccines.Vacname;
                     txtCellVacDate.Detail = vaccines.VacDate.ToString();
                 }
                 else
                 {
+                    txtCellVacName.IsEnabled = false;
                     txtCellVacDate.IsEnabled = false;
+                    //txtCellVacName.Detail = "Unknown";
                 }
+                
                 //Medications
                 if (medications != null)
                 {
@@ -275,15 +284,15 @@ namespace Pethouse.Pages
             string action = await DisplayActionSheet("What type of treatment would you like to add?", "Cancel", null, "Vaccine", "Medication", "Treatment");
             if (action == "Vaccine")
             {
-                _ = Navigation.PushModalAsync(new VaccinesPage(petId));
+                _ = Navigation.PushModalAsync(new AddVaccinesPage(petId));
 
             }else if (action == "Medication")
             {
-                _ = Navigation.PushModalAsync(new MediacationsPage()); //add pet id as parameter
+                _ = Navigation.PushModalAsync(new AddMediacationsPage(petId)); //add pet id as parameter
             }
             else if (action == "Treatment")
             {
-                _ = Navigation.PushModalAsync(new GrooomingPage());  //add pet id as parameter
+                _ = Navigation.PushModalAsync(new AddGrooomingPage(petId));  //add pet id as parameter
             }
             
         }

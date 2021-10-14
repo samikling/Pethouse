@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pethouse.Pages.AddMediacationsPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Add a new medication" 
+                HorizontalOptions="CenterAndExpand" />
+
+            <Entry Placeholder="Medication name:" x:Name="nameEntry"></Entry>
+
+            <Label Text="Medication date: "></Label>
+            <DatePicker x:Name="medDatePicker"></DatePicker>
+            <Label Text="Medication expiration date: "></Label>
+            <DatePicker x:Name="medExpDatePicker"></DatePicker>
+
+            <Button Text="Add Medication" x:Name="addButton" Clicked="addButton_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
