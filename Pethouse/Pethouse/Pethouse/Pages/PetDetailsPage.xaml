@@ -22,9 +22,9 @@
                 </ContentView.Content>
             </ContentView>
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="vaccinesButton" BackgroundColor="LightSkyBlue" Text="Vaccines" HorizontalOptions="StartAndExpand" ></Button>
-                <Button x:Name="medicationsButton" BackgroundColor="LimeGreen" Text="Medications" HorizontalOptions="CenterAndExpand" ></Button>
-                <Button x:Name="groomingButton" BackgroundColor = "IndianRed" Text="Grooming" HorizontalOptions="EndAndExpand"  ></Button>
+                <Button x:Name="vaccinesButton" BackgroundColor="LightSkyBlue" Text="Vaccines" HorizontalOptions="StartAndExpand" Clicked="vaccinesButton_Clicked"></Button>
+                <Button x:Name="medicationsButton" BackgroundColor="LightSkyBlue" Text="Medications" HorizontalOptions="CenterAndExpand" Clicked="medicationsButton_Clicked" ></Button>
+                <Button x:Name="groomingButton" BackgroundColor = "LightSkyBlue" Text="Grooming" HorizontalOptions="EndAndExpand" Clicked="groomingButton_Clicked"  ></Button>
             </StackLayout>
             <StackLayout>
             <TableView x:Name="treatmentsTable">

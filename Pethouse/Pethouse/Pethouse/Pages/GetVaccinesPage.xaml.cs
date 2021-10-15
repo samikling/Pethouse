@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Pethouse.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using System.Collections.ObjectModel;
+
+namespace Pethouse.Pages
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class GetVaccinesPage : ContentPage
+    {
+        int id = 0;
+        public GetVaccinesPage(int PetId)
+        {
+            InitializeComponent();
+            id = PetId;
+            GetVaccines();
+        }
+
+        private async void GetVaccines()
+        {
+           //Initialize and setup httpclient and base address
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+            //Load vaccines
+            string json = await client.GetStringAsync("/api/vaccines/vaclist/" + id);
+            IEnumerable<Vaccines> vacs = JsonConvert.DeserializeObject<Vaccines[]>(json);
+            ObservableCollection<Vaccines> dataa = new ObservableCollection<Vaccines>(vacs);
+            vacList.ItemsSource = dataa;
+        }
+        private void vacList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Vaccines vac = (Vaccines)vacList.SelectedItem;
+            //int id = pet.PetId;
+            _ = Navigation.PushModalAsync(new EditVaccinePage(vac.VacId, vac.Vacname, vac.VacDate, vac.VacExpDate));
+        }
+    }
+}

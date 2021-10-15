@@ -296,6 +296,21 @@ namespace Pethouse.Pages
             }
             
         }
+
+        private void vaccinesButton_Clicked(object sender, EventArgs e)
+        {
+            _ = Navigation.PushModalAsync(new GetVaccinesPage(petId));
+        }
+
+        private void medicationsButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groomingButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 /*!!!TODO:
@@ -317,6 +332,9 @@ namespace Pethouse.Pages
  * - Rokotteiden, lääkkeiden ja hoitojen lisäys, muokkaus ja poisto
  * - Muistutustoiminto
  * - Valokuvatoiminto tai vastaava
+ * 14.10.2021
+ * - Lääkkeiden ja hoitojen lisäys toimii.
+ * 
  * 
  *
  * 

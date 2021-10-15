@@ -49,7 +49,7 @@ namespace Pethouse
             petsList.RefreshCommand = refreshCommand; //refresh command
 
         }
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
            
