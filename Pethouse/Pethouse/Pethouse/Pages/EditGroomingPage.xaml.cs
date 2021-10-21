@@ -4,44 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pethouse.Models;
-using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditVaccinePage : ContentPage
+    public partial class EditGroomingPage : ContentPage
     {
-        Vaccines vacOld = new Vaccines();
-       
-
-        public EditVaccinePage(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
+        Grooming groomingOld = new Grooming();
+        public EditGroomingPage(int id, string groomname, DateTime? groomdate, DateTime? groomexpdate,string comments)
         {
             InitializeComponent();
-            vacOld.VacId = id;
-            vacOld.Vacname = vacname;
-            vacOld.VacDate = vacdate;
-            vacOld.VacExpDate = vacexpdate;
-            LoadDetails(id,vacname,vacdate,vacexpdate);
+            groomingOld.GroomId = id;
+            groomingOld.Groomname = groomname;
+            groomingOld.GroomDate = groomdate;
+            groomingOld.GroomExpDate = groomexpdate;
+            groomingOld.Comments = comments;
+            LoadDetails(id,groomname,groomdate,groomexpdate,comments);
         }
 
-        private async void LoadDetails(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
+        private void LoadDetails(int id, string groomname, DateTime? groomdate, DateTime? groomexpdate,string comments)
         {
-        //Initialize and setup httpclient and base address
-        HttpClient client = new HttpClient();
-        client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+            //Initialize and setup httpclient and base address
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
             //Load vaccines
-            Vaccines edit = new Vaccines()
+            Grooming edit = new Grooming()
             {
-                VacId = id,
-                Vacname = vacname,
-                VacDate = vacdate,
-                VacExpDate = vacexpdate
+                GroomId = id,
+                Groomname = groomname,
+                GroomDate = groomdate,
+                GroomExpDate = groomexpdate,
+                Comments= comments
 
             };
-            editVacStack.BindingContext = edit;
+            editGroomStack.BindingContext = edit;
             //string jsonString = JsonConvert.SerializeObject(edit);
             //string json = await client.GetStringAsync("/api/vaccines/edit" + id);
             //IEnumerable<Vaccines> vacs = JsonConvert.DeserializeObject<Vaccines[]>(json);
@@ -53,22 +53,23 @@ namespace Pethouse.Pages
         {
             try
             {
-                int id = vacOld.VacId;
-                Vaccines vacNew = new Vaccines
+                int id = groomingOld.GroomId;
+                Grooming groomNew = new Grooming
                 {
-                    Vacname = nameEntry.Text,
-                    VacDate = vacdatePicker.Date,
-                    VacExpDate = vacexpdatePicker.Date
+                    Groomname = nameEntry.Text,
+                    GroomDate = groomdatePicker.Date,
+                    GroomExpDate = groomexpdatePicker.Date,
+                    Comments = commentsEditor.Text
                 };
                 //Datan serialisointi ja vienti API:lle
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
-                string newObject = JsonConvert.SerializeObject(vacNew);
+                string newObject = JsonConvert.SerializeObject(groomNew);
                 StringContent newContent = new StringContent(newObject, Encoding.UTF8, "application/json");
 
 
                 // Lähetetään serialisoitu objekti back-endiin Put pyyntönä
-                HttpResponseMessage message = await client.PutAsync("/api/vaccines/" + id, newContent);
+                HttpResponseMessage message = await client.PutAsync("/api/grooming/" + id, newContent);
 
                 // Otetaan vastaan palvelimen vastaus
                 string reply = await message.Content.ReadAsStringAsync();
@@ -78,7 +79,7 @@ namespace Pethouse.Pages
 
                 if (success)  // Näytetään ehdollisesti alert viesti
                 {
-                    await DisplayAlert("Pet with ID:" + vacNew.Vacname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                    await DisplayAlert("Operation " + groomNew.Groomname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
                     MainPage mainPage = new MainPage();
                     mainPage.LoadPets(LoginInfo.UserId, null);
                 }
@@ -99,8 +100,8 @@ namespace Pethouse.Pages
 
         private async void deleteButton_Clicked(object sender, EventArgs e)
         {
-            int id = vacOld.VacId;
-            bool response = await DisplayAlert("Delete " + vacOld.Vacname + "?", "Really Delete?", "Yes", "No");
+            int id = groomingOld.GroomId;
+            bool response = await DisplayAlert("Delete " + groomingOld.Groomname + "?", "Really Delete?", "Yes", "No");
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
@@ -108,15 +109,15 @@ namespace Pethouse.Pages
             {
                 if (response)
                 {
-                    HttpResponseMessage message = await client.DeleteAsync("/api/vaccines/" + id);
+                    HttpResponseMessage message = await client.DeleteAsync("/api/grooming/" + id);
                     if (message.IsSuccessStatusCode)
                     {
-                        await DisplayAlert("OK", "The vaccine " + vacOld.Vacname + " was deleted.", "Ok");
+                        await DisplayAlert("OK", "The treatment " + groomingOld.Groomname + " was deleted.", "Ok");
                     }
                 }
                 else
                 {
-                    await DisplayAlert("Cancelled", "The vaccine " + vacOld.Vacname + " was not deleted.", "Ok");
+                    await DisplayAlert("Cancelled", "The treatment " + groomingOld.Groomname + " was not deleted.", "Ok");
                 }
 
             }

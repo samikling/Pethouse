@@ -30,15 +30,15 @@
             <TableView x:Name="treatmentsTable">
                 <TableRoot>
                     <TableSection x:Name="vacSection" Title="Vaccines">
-                        <TextCell  x:Name="txtCellVacName" Text="Vaccine: " Detail="{Binding Vacname}" />
+                        <TextCell x:Name="txtCellVacName" Text="Vaccine: " Detail="{Binding Vacname}" Tapped="txtCellVacName_Tapped"/>
                         <TextCell x:Name="txtCellVacDate" Text="Date: " Detail="{Binding VacDate}"/>
                     </TableSection>
                     <TableSection Title="Medications">
-                        <TextCell x:Name="txtCellMedName" Text="Medicine: " Detail="" />
+                        <TextCell x:Name="txtCellMedName" Text="Medicine: " Detail="" Tapped="txtCellMedName_Tapped"/>
                         <TextCell x:Name="txtCellMedDate" Text="Date: " Detail=""/>
                     </TableSection>
                     <TableSection Title="Grooming">
-                        <TextCell x:Name="txtCellGroomName" Text="Treatment: " Detail="" />
+                        <TextCell x:Name="txtCellGroomName" Text="Treatment: " Detail="" Tapped="txtCellGroomName_Tapped"/>
                         <TextCell x:Name="txtCellGroomDate" Text="Date: " Detail=""/>
                     </TableSection>
                 </TableRoot>

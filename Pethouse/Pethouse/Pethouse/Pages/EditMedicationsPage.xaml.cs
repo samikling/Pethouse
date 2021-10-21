@@ -4,44 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pethouse.Models;
-using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditVaccinePage : ContentPage
+    public partial class EditMedicationsPage : ContentPage
     {
-        Vaccines vacOld = new Vaccines();
-       
-
-        public EditVaccinePage(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
+        Medications medicationOld = new Medications();
+        public EditMedicationsPage(int id,string medname, DateTime? meddate, DateTime? medexpdate)
         {
             InitializeComponent();
-            vacOld.VacId = id;
-            vacOld.Vacname = vacname;
-            vacOld.VacDate = vacdate;
-            vacOld.VacExpDate = vacexpdate;
-            LoadDetails(id,vacname,vacdate,vacexpdate);
+            medicationOld.MedId = id;
+            medicationOld.Medname = medname;
+            medicationOld.MedDate = meddate;
+            medicationOld.MedExpDate = medexpdate;
+            LoadDetails(id,medname,meddate,medexpdate);
         }
 
-        private async void LoadDetails(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
+        private void LoadDetails(int id, string medname, DateTime? meddate, DateTime? medexpdate)
         {
-        //Initialize and setup httpclient and base address
-        HttpClient client = new HttpClient();
-        client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+            //Initialize and setup httpclient and base address
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
             //Load vaccines
-            Vaccines edit = new Vaccines()
+            Medications edit = new Medications()
             {
-                VacId = id,
-                Vacname = vacname,
-                VacDate = vacdate,
-                VacExpDate = vacexpdate
+                MedId = id,
+                Medname = medname,
+                MedDate = meddate,
+                MedExpDate = medexpdate
 
             };
-            editVacStack.BindingContext = edit;
+            editMedStack.BindingContext = edit;
             //string jsonString = JsonConvert.SerializeObject(edit);
             //string json = await client.GetStringAsync("/api/vaccines/edit" + id);
             //IEnumerable<Vaccines> vacs = JsonConvert.DeserializeObject<Vaccines[]>(json);
@@ -53,22 +51,22 @@ namespace Pethouse.Pages
         {
             try
             {
-                int id = vacOld.VacId;
-                Vaccines vacNew = new Vaccines
+                int id = medicationOld.MedId;
+                Medications medNew = new Medications
                 {
-                    Vacname = nameEntry.Text,
-                    VacDate = vacdatePicker.Date,
-                    VacExpDate = vacexpdatePicker.Date
+                    Medname = nameEntry.Text,
+                    MedDate = meddatePicker.Date,
+                    MedExpDate = medexpdatePicker.Date
                 };
                 //Datan serialisointi ja vienti API:lle
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
-                string newObject = JsonConvert.SerializeObject(vacNew);
+                string newObject = JsonConvert.SerializeObject(medNew);
                 StringContent newContent = new StringContent(newObject, Encoding.UTF8, "application/json");
 
 
                 // Lähetetään serialisoitu objekti back-endiin Put pyyntönä
-                HttpResponseMessage message = await client.PutAsync("/api/vaccines/" + id, newContent);
+                HttpResponseMessage message = await client.PutAsync("/api/medications/" + id, newContent);
 
                 // Otetaan vastaan palvelimen vastaus
                 string reply = await message.Content.ReadAsStringAsync();
@@ -78,7 +76,7 @@ namespace Pethouse.Pages
 
                 if (success)  // Näytetään ehdollisesti alert viesti
                 {
-                    await DisplayAlert("Pet with ID:" + vacNew.Vacname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                    await DisplayAlert("Operation " + medNew.Medname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
                     MainPage mainPage = new MainPage();
                     mainPage.LoadPets(LoginInfo.UserId, null);
                 }
@@ -99,8 +97,8 @@ namespace Pethouse.Pages
 
         private async void deleteButton_Clicked(object sender, EventArgs e)
         {
-            int id = vacOld.VacId;
-            bool response = await DisplayAlert("Delete " + vacOld.Vacname + "?", "Really Delete?", "Yes", "No");
+            int id = medicationOld.MedId;
+            bool response = await DisplayAlert("Delete " + medicationOld.Medname + "?", "Really Delete?", "Yes", "No");
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
@@ -108,15 +106,15 @@ namespace Pethouse.Pages
             {
                 if (response)
                 {
-                    HttpResponseMessage message = await client.DeleteAsync("/api/vaccines/" + id);
+                    HttpResponseMessage message = await client.DeleteAsync("/api/medications/" + id);
                     if (message.IsSuccessStatusCode)
                     {
-                        await DisplayAlert("OK", "The vaccine " + vacOld.Vacname + " was deleted.", "Ok");
+                        await DisplayAlert("OK", "The medication " + medicationOld.Medname + " was deleted.", "Ok");
                     }
                 }
                 else
                 {
-                    await DisplayAlert("Cancelled", "The vaccine " + vacOld.Vacname + " was not deleted.", "Ok");
+                    await DisplayAlert("Cancelled", "The vaccine " + medicationOld.Medname + " was not deleted.", "Ok");
                 }
 
             }

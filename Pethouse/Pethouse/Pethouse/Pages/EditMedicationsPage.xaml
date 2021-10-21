@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Pethouse.Pages.EditVaccinePage">
+             x:Class="Pethouse.Pages.EditMedicationsPage">
     <ContentPage.Content>
-        <StackLayout x:Name="editVacStack">
-            <Label Text="Edit Vaccine" 
+        <StackLayout x:Name="editMedStack">
+            <Label Text="Edit Medication" 
                 HorizontalOptions="CenterAndExpand" />
-            <Entry Placeholder="{Binding Vacname}" x:Name="nameEntry"></Entry>
-            <Label Text="Vaccination date: "></Label>
-            <DatePicker x:Name="vacdatePicker" Date="{Binding VacDate}" ></DatePicker>
+            <Entry Placeholder="{Binding Medname}" x:Name="nameEntry"></Entry>
+            <Label Text="Medication date: "></Label>
+            <DatePicker x:Name="meddatePicker" Date="{Binding MedDate}" ></DatePicker>
             <Label Text="Expiration date: "></Label>
-            <DatePicker x:Name="vacexpdatePicker" Date="{Binding VacExpDate}"></DatePicker>
+            <DatePicker x:Name="medexpdatePicker" Date="{Binding MedExpDate}"></DatePicker>
             <Button Text="Save" x:Name="saveButton" Clicked="saveButton_Clicked"></Button>
             <Button Text="Delete" x:Name="deleteButton" Clicked="deleteButton_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+   </ContentPage>

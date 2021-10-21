@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pethouse.Pages.EditGroomingPage">
+    <ContentPage.Content>
+        <StackLayout x:Name="editGroomStack">
+            <Label Text="Edit Treatment" 
+                HorizontalOptions="CenterAndExpand" />
+            <Entry Placeholder="{Binding Groomname}" x:Name="nameEntry"></Entry>
+            <Label Text="Treatment date: "></Label>
+            <DatePicker x:Name="groomdatePicker" Date="{Binding GroomDate}" ></DatePicker>
+            <Label Text="Expiration date: "></Label>
+            <DatePicker x:Name="groomexpdatePicker" Date="{Binding GroomExpDate}"></DatePicker>
+            <Label Text="Comments: "></Label>
+            <Editor x:Name="commentsEditor" Text="{Binding Comments}"></Editor>
+            <Button Text="Save" x:Name="saveButton" Clicked="saveButton_Clicked"></Button>
+            <Button Text="Delete" x:Name="deleteButton" Clicked="deleteButton_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

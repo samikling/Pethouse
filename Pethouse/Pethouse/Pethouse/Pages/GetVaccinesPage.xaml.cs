@@ -29,7 +29,7 @@ namespace Pethouse.Pages
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
             //Load vaccines
-            string json = await client.GetStringAsync("/api/vaccines/vaclist/" + id);
+            string json = await client.GetStringAsync("/api/vaccines/list/" + id);
             IEnumerable<Vaccines> vacs = JsonConvert.DeserializeObject<Vaccines[]>(json);
             ObservableCollection<Vaccines> dataa = new ObservableCollection<Vaccines>(vacs);
             vacList.ItemsSource = dataa;

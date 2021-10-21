@@ -156,10 +156,10 @@ namespace Pethouse.Pages
             {
                 BaseAddress = new Uri("https://pethouse.azurewebsites.net/")
             };
-            //TODO:
+            
 
             //Delete pets vacs if any
-            string jsonRequestVacCount = await client.GetStringAsync("/api/vaccines/list/" + petId);
+            string jsonRequestVacCount = await client.GetStringAsync("/api/vaccines/count/" + petId);
             int vacCount = JsonConvert.DeserializeObject<int>(jsonRequestVacCount);
             if (vacCount > 0)
             {
@@ -170,7 +170,7 @@ namespace Pethouse.Pages
                     {
                         try
                         {
-                            HttpResponseMessage message = await client.DeleteAsync("/api/vaccines/" + petId);
+                            HttpResponseMessage message = await client.DeleteAsync("/api/vaccines/list/" + petId);
 
  }
                         catch (Exception ex)
@@ -190,7 +190,7 @@ namespace Pethouse.Pages
             }
 
             //Delete pets meds if any
-            string jsonRequestMedCount = await client.GetStringAsync("/api/medications/list/" + petId);
+            string jsonRequestMedCount = await client.GetStringAsync("/api/medications/count/" + petId);
             int medCount = JsonConvert.DeserializeObject<int>(jsonRequestMedCount);
             if (medCount > 0)
             {
@@ -201,7 +201,7 @@ namespace Pethouse.Pages
                     {
                         try
                         {
-                            HttpResponseMessage message = await client.DeleteAsync("/api/medications/" + petId);
+                            HttpResponseMessage message = await client.DeleteAsync("/api/medications/list/" + petId);
 
                         }
                         catch (Exception ex)
@@ -220,7 +220,7 @@ namespace Pethouse.Pages
 
             }
             //Delete pets treatments if any
-            string jsonRequestGroomCount = await client.GetStringAsync("/api/grooming/list/" + petId);
+            string jsonRequestGroomCount = await client.GetStringAsync("/api/grooming/count/" + petId);
             int groomCount = JsonConvert.DeserializeObject<int>(jsonRequestGroomCount);
             if (groomCount > 0)
             {
@@ -231,7 +231,7 @@ namespace Pethouse.Pages
                     {
                         try
                         {
-                            HttpResponseMessage message = await client.DeleteAsync("/api/grooming/" + petId);
+                            HttpResponseMessage message = await client.DeleteAsync("/api/grooming/list/" + petId);
 
                         }
                         catch (Exception ex)
@@ -296,7 +296,13 @@ namespace Pethouse.Pages
             }
             
         }
-
+        /*Todo:
+         * GetMedicationsPage
+         * GetGroomingPage
+         * vacname_tapped => open edit vaccination
+         * medname_tapped => open edit medication
+         * groomname_tapped => open edit grooming
+         */
         private void vaccinesButton_Clicked(object sender, EventArgs e)
         {
             _ = Navigation.PushModalAsync(new GetVaccinesPage(petId));
@@ -304,10 +310,25 @@ namespace Pethouse.Pages
 
         private void medicationsButton_Clicked(object sender, EventArgs e)
         {
-
+            _ = Navigation.PushModalAsync(new GetMedicationsPage(petId));
         }
 
         private void groomingButton_Clicked(object sender, EventArgs e)
+        {
+            _ = Navigation.PushModalAsync(new GetGroomingPage(petId));
+        }
+
+        private void txtCellVacName_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCellMedName_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCellGroomName_Tapped(object sender, EventArgs e)
         {
 
         }
