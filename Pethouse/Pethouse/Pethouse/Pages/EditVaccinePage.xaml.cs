@@ -81,6 +81,7 @@ namespace Pethouse.Pages
                     await DisplayAlert("Pet with ID:" + vacNew.Vacname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
                     MainPage mainPage = new MainPage();
                     mainPage.LoadPets(LoginInfo.UserId, null);
+                    _ = Navigation.PopModalAsync();
                 }
                 else
                 {
@@ -112,6 +113,7 @@ namespace Pethouse.Pages
                     if (message.IsSuccessStatusCode)
                     {
                         await DisplayAlert("OK", "The vaccine " + vacOld.Vacname + " was deleted.", "Ok");
+                        _ = Navigation.PopModalAsync();
                     }
                 }
                 else

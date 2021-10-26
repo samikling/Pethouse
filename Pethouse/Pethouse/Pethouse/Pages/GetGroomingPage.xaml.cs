@@ -20,6 +20,13 @@ namespace Pethouse.Pages
             InitializeComponent();
             id = PetId;
             GetGrooming();
+            OnAppearing();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            GetGrooming();
         }
         private async void GetGrooming()
         {

@@ -6,14 +6,12 @@
         <StackLayout>
             <Label Text="Edit pet" 
                 HorizontalOptions="CenterAndExpand" />
-            <Button x:Name="photoButton" Text="Change photo"></Button>
+            <!--<Button x:Name="photoButton" Text="Change photo"></Button>-->
             <Entry Placeholder="{Binding Petname}" x:Name="nameEntry"></Entry>
             <Picker Title="" x:Name="racePicker" SelectedIndexChanged="racePicker_SelectedIndexChanged" ></Picker>
             <Picker Title="" x:Name="breedPicker"  ></Picker>
             <Label Text="Select date of birth: "></Label>
             <DatePicker x:Name="bdatePicker" ></DatePicker>
-            <Entry Placeholder="Debug: " x:Name="debugEntry" ></Entry>
-            <Entry Placeholder="Debug: " x:Name="debugEntry2" ></Entry>
             <Button Text="Save" x:Name="saveButton" Clicked="Save_Button_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>

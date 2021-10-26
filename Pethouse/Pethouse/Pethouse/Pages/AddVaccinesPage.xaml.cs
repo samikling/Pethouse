@@ -60,6 +60,7 @@ namespace Pethouse.Pages
                 {
 
                     await DisplayAlert("New vaccine added", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                    _ = Navigation.PopModalAsync();
 
 
                 }

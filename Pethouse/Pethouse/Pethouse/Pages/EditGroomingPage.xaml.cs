@@ -82,6 +82,7 @@ namespace Pethouse.Pages
                     await DisplayAlert("Operation " + groomNew.Groomname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
                     MainPage mainPage = new MainPage();
                     mainPage.LoadPets(LoginInfo.UserId, null);
+                    _ = Navigation.PopModalAsync();
                 }
                 else
                 {
@@ -113,6 +114,7 @@ namespace Pethouse.Pages
                     if (message.IsSuccessStatusCode)
                     {
                         await DisplayAlert("OK", "The treatment " + groomingOld.Groomname + " was deleted.", "Ok");
+                        _ = Navigation.PopModalAsync();
                     }
                 }
                 else

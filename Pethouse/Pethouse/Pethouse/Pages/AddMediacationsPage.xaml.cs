@@ -60,7 +60,7 @@ namespace Pethouse.Pages
                 {
 
                     await DisplayAlert("New medication added", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
-
+                    _ = Navigation.PopModalAsync();
 
                 }
                 else

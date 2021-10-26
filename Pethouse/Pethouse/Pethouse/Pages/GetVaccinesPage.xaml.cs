@@ -21,6 +21,13 @@ namespace Pethouse.Pages
             InitializeComponent();
             id = PetId;
             GetVaccines();
+            OnAppearing();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            GetVaccines();
         }
 
         private async void GetVaccines()

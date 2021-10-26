@@ -18,6 +18,13 @@ namespace Pethouse.Pages
             InitializeComponent();
             petId = idParam;
             LoadDetails(null, null);
+            OnAppearing();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            LoadDetails(null, null);
         }
         /// <summary>
         /// public void LoadDetails(object, EventArgs)
@@ -163,7 +170,7 @@ namespace Pethouse.Pages
             int vacCount = JsonConvert.DeserializeObject<int>(jsonRequestVacCount);
             if (vacCount > 0)
             {
-                await DisplayAlert("Pet " + petId, "has " + vacCount.ToString() + " Vaccines.", "Ok");
+                //await DisplayAlert("Pet " + petId, "has " + vacCount.ToString() + " Vaccines.", "Ok");
                 try
                 {
                     for (int i = 0; i < vacCount; i++)
@@ -194,7 +201,7 @@ namespace Pethouse.Pages
             int medCount = JsonConvert.DeserializeObject<int>(jsonRequestMedCount);
             if (medCount > 0)
             {
-                await DisplayAlert("Pet " + petId, "has " + medCount.ToString() + " Medications.", "Ok");
+                //await DisplayAlert("Pet " + petId, "has " + medCount.ToString() + " Medications.", "Ok");
                 try
                 {
                     for (int i = 0; i < medCount; i++)
@@ -224,7 +231,7 @@ namespace Pethouse.Pages
             int groomCount = JsonConvert.DeserializeObject<int>(jsonRequestGroomCount);
             if (groomCount > 0)
             {
-                await DisplayAlert("Pet " + petId, "has " + medCount.ToString() + " Treatmens.", "Ok");
+                //await DisplayAlert("Pet " + petId, "has " + medCount.ToString() + " Treatmens.", "Ok");
                 try
                 {
                     for (int i = 0; i < groomCount; i++)
@@ -259,6 +266,7 @@ namespace Pethouse.Pages
                     if (message.IsSuccessStatusCode)
                     {
                         await DisplayAlert("OK", "The pet with id " + petId + " was deleted.", "Ok");
+                        _ = Navigation.PopModalAsync();
                     }
                 }
                 else

@@ -12,20 +12,9 @@ namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddPetPage : ContentPage
-    /*
-    General notes for solution:
-    Prequisites
-
-    Firstly to create a get function that queries the database for all the avaiable breeds, so that they can be show on the selection menu.
-    It should propably be of type List<Breeds>
-    UserId = static(should allready exist, see login)
-    Petname
-    Birthdate
-    Photo
-    Race_id -  Dropdown box, either cat or a dog
-    Breed_id - Based on race selection show all breeds for that race
-    */
+    
     {
+        string photoString;
         private List<Races> races = new List<Races>();
         private List<Breeds> breedsList = new List<Breeds>();
         public AddPetPage()
@@ -69,6 +58,7 @@ namespace Pethouse.Pages
                     if (breeds.RaceId == 1)
                     {
                         breed.Add(breeds.Breedname);
+                        photoString = "https://th.bing.com/th/id/OIP.IRgtzHgst1qB8jRQHvK-3QHaHY?pid=ImgDet&rs=1";
                     }
 
                 }
@@ -78,6 +68,8 @@ namespace Pethouse.Pages
                     if (breeds.RaceId == 2)
                     {
                         breed.Add(breeds.Breedname);
+                        photoString = "https://th.bing.com/th/id/R.bbc2d15a5fab1cc7a169dcaea2fa7392?rik=%2bRQy90HTXnBo%2fQ&riu=http%3a%2f%2fgetdrawings.com" +
+                                      "%2fimg%2fblack-cat-silhouette-template-12.jpg&ehk=d1MnyeourS%2fp1gXKYl7%2foDDj9i6a3Vx%2bcG29dTRnMY8%3d&risl=&pid=ImgRaw&r=0";
                     }
                 }
             }
@@ -90,6 +82,8 @@ namespace Pethouse.Pages
          * 25.08.2021-Lisätty toiminto joka hakee Pickkereiden indeksin perusteella
          * BreedId ja RaceId tiedon. Lisätty Debug tekstikenttä. Lisätty ADD nappi.
          * Lisätty Rodun hakutoiminto.
+         * 26.10.2021 Muokattu ulkoasua, poistettu turhat debug laatikot, sekä valo-
+         * kuva nappi toistaiseksi.
          * -------------------------------------------------------------------------
          * TODO:
          * -------------------------------------------------------------------------
@@ -103,9 +97,9 @@ namespace Pethouse.Pages
             raceIdmem = races[racePicker.SelectedIndex].RaceId;
             breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId;
 
-            debugEntry.Text = LoginInfo.UserId.ToString()
-                + nameEntry.Text + bdatePicker.Date.ToString() +
-                raceIdmem.ToString() + breedIdmem.ToString();
+            //debugEntry.Text = LoginInfo.UserId.ToString()
+            //    + nameEntry.Text + bdatePicker.Date.ToString() +
+            //    raceIdmem.ToString() + breedIdmem.ToString();
 
 
             Pets pets = new Pets()
@@ -113,7 +107,7 @@ namespace Pethouse.Pages
                 UserId = LoginInfo.UserId,
                 Petname = nameEntry.Text,
                 Birthdate = bdatePicker.Date,
-                //Photo = photoButton.Text,
+                Photo = photoString,
                 RaceId = raceIdmem,
                 BreedId = breedIdmem
             };
@@ -139,12 +133,13 @@ namespace Pethouse.Pages
                 {
 
                     await DisplayAlert("New pet added", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                    _ = Navigation.PopModalAsync();
 
 
                 }
                 else
                 {
-                    await DisplayAlert("Työn lopetus", "Työtä ei voitu lopettaa koska sitä ei ole aloitettu.", "Sulje"); // Muutettu 4.5.
+                    await DisplayAlert("Error", "Error", "Error"); // Muutettu 4.5.
                 }
             }
             catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
@@ -152,8 +147,8 @@ namespace Pethouse.Pages
 
                 string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
                 string errorMessage2 = ex.Message;
-                debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
-                debugEntry2.Text = errorMessage2;
+                //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
+                //debugEntry2.Text = errorMessage2;
             }
         }
 

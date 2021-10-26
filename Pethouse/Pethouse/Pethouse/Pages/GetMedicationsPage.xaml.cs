@@ -20,6 +20,13 @@ namespace Pethouse.Pages
             InitializeComponent();
             id = PetId;
             GetMedications();
+            OnAppearing();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            GetMedications();
         }
         private async void GetMedications()
         {

@@ -15,20 +15,9 @@ namespace Pethouse.Pages
     {
         private List<Races> races = new List<Races>();
         private List<Breeds> breedsList = new List<Breeds>();
-        private Pets pets = new Pets();
+        public int? petRace;
+        public int? petBreed;
         public int petId;
-        /// <summary>
-        /// Loads Pets details by PetId
-        /// Details can then be edited by the user.
-        /// </summary>
-        /// <param name="idParam"></param>
-        /// 
-
-        //TODO:
-        // Fix a problem where, when clicking the save button, if no race or no breed have been selected
-        // there will be a no index selected error. 
-        // Add a refresh function for the page, after the save has been successfull
-
         public EditPetPage(int idParam)
         {
 
@@ -41,11 +30,7 @@ namespace Pethouse.Pages
             }
 
         }
-        /// <summary>
-        /// Loads pets details
-        /// </summary>
-        /// <param name="sender">PetId</param>
-        /// <param name="e">placeholder</param>
+        
         private async void LoadPet(object sender, EventArgs e)
         {
             int petId = (int)sender;
@@ -57,15 +42,17 @@ namespace Pethouse.Pages
             };
             //Load pet
             string jsonPet = await client.GetStringAsync("/api/pets/" + petId);
-            pets = JsonConvert.DeserializeObject<Pets>(jsonPet);
+            pet = JsonConvert.DeserializeObject<Pets>(jsonPet);
+            petRace = pet.RaceId;
+            petBreed = pet.BreedId;
             //Load breed information
-            string jsonBreed = await client.GetStringAsync("/api/Breeds/" + pets.BreedId);
+            string jsonBreed = await client.GetStringAsync("/api/Breeds/" + pet.BreedId);
             Breeds breed = JsonConvert.DeserializeObject<Breeds>(jsonBreed);
             try
             {
-                nameEntry.Text = pets.Petname;
-                bdatePicker.Date = (DateTime)pets.Birthdate;
-                racePicker.Title = pets.RaceId == 1 ? "Dog" : "Cat";
+                nameEntry.Text = pet.Petname;
+                bdatePicker.Date = (DateTime)pet.Birthdate;
+                racePicker.Title = pet.RaceId == 1 ? "Dog" : "Cat";
                 breedPicker.Title = breed.Breedname;
                 LoadRaces();
 
@@ -76,9 +63,7 @@ namespace Pethouse.Pages
                 await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
-        /// <summary>
-        /// Loads a list of pet races
-        /// </summary>
+        
         public async void LoadRaces()
         {
 
@@ -94,13 +79,10 @@ namespace Pethouse.Pages
             }
 
             racePicker.ItemsSource = raceList;
+            racePicker.SelectedIndex = (int)petRace-1;
 
         }
-        /// <summary>
-        /// Loads a list of breeds based on RaceId
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
         public async void LoadBreeds(Object sender, EventArgs e)
         {
 
@@ -130,6 +112,14 @@ namespace Pethouse.Pages
                 }
             }
             breedPicker.ItemsSource = breed;
+            if (racePicker.SelectedItem.Equals("Cat"))
+            {
+                breedPicker.SelectedIndex = (int)petBreed - 386;
+            }
+            else
+            {
+                breedPicker.SelectedIndex = (int)petBreed - 1;
+            }
 
 
         }
@@ -146,34 +136,52 @@ namespace Pethouse.Pages
                 breedPicker.IsEnabled = false;
             }
         }
-        /// <summary>
-        /// Sends the edited information to the API
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+       
         public async void Save_Button_Clicked(object sender, EventArgs e)
         {
-            int breedIdmem = 0;
-            int raceIdmem = 0;
-            raceIdmem = races[racePicker.SelectedIndex].RaceId;
-            breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId;
-
-            debugEntry.Text = LoginInfo.UserId.ToString()
-                + nameEntry.Text + bdatePicker.Date.ToString() +
-                raceIdmem.ToString() + breedIdmem.ToString();
-
-            var pets = new Pets
+            int breedIdmem;
+            int raceIdmem;
+            
+            if (racePicker.SelectedIndex == -1)
             {
-                UserId = LoginInfo.UserId,
-                Petname = nameEntry.Text,
-                Birthdate = bdatePicker.Date,
-
-                RaceId = raceIdmem,
-                BreedId = breedIdmem
-            };
+                raceIdmem = (int)petRace;
+            }
+            else
+            {
+              raceIdmem = races[racePicker.SelectedIndex].RaceId;
+            }
+            if (breedPicker.SelectedIndex == -1)
+            {
+                breedIdmem = (int)petBreed;
+            }
+            else
+            {
+                if (racePicker.SelectedItem.Equals("Cat"))
+                {
+                    breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId + 385;
+                }
+                else
+                {
+                    breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId;
+                }
+            }
+            
+            
+            
+            
 
             try
             {
+                var pets = new Pets
+                {
+                    UserId = LoginInfo.UserId,
+                    PetId = petId,
+                    Petname = nameEntry.Text,
+                    RaceId    = raceIdmem,
+                    BreedId = breedIdmem,
+                    Birthdate = bdatePicker.Date
+                };
+                
                 //Datan serialisointi ja vienti API:lle
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
@@ -191,9 +199,10 @@ namespace Pethouse.Pages
 
                 if (success)  // Näytetään ehdollisesti alert viesti
                 {
-                    await DisplayAlert("Pet with ID:" + petId + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                    await DisplayAlert("Success", "Pet with id:" +petId+ " edited and changes saved.", "Ok"); // (otsikko, teksti, kuittausnapin teksti)
                     MainPage mainPage = new MainPage();
                     mainPage.LoadPets(LoginInfo.UserId, null);
+                    _ = Navigation.PopModalAsync();
                 }
                 else
                 {

@@ -79,6 +79,7 @@ namespace Pethouse.Pages
                     await DisplayAlert("Operation " + medNew.Medname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
                     MainPage mainPage = new MainPage();
                     mainPage.LoadPets(LoginInfo.UserId, null);
+                    _ = Navigation.PopModalAsync();
                 }
                 else
                 {
@@ -110,6 +111,7 @@ namespace Pethouse.Pages
                     if (message.IsSuccessStatusCode)
                     {
                         await DisplayAlert("OK", "The medication " + medicationOld.Medname + " was deleted.", "Ok");
+                        _ = Navigation.PopModalAsync();
                     }
                 }
                 else
