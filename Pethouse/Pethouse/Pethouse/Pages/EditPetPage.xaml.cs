@@ -30,7 +30,7 @@ namespace Pethouse.Pages
             }
 
         }
-        
+
         private async void LoadPet(object sender, EventArgs e)
         {
             int petId = (int)sender;
@@ -63,7 +63,7 @@ namespace Pethouse.Pages
                 await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
-        
+
         public async void LoadRaces()
         {
 
@@ -79,10 +79,10 @@ namespace Pethouse.Pages
             }
 
             racePicker.ItemsSource = raceList;
-            racePicker.SelectedIndex = (int)petRace-1;
+            racePicker.SelectedIndex = (int)petRace - 1;
 
         }
-        
+
         public async void LoadBreeds(Object sender, EventArgs e)
         {
 
@@ -136,19 +136,19 @@ namespace Pethouse.Pages
                 breedPicker.IsEnabled = false;
             }
         }
-       
+
         public async void Save_Button_Clicked(object sender, EventArgs e)
         {
             int breedIdmem;
             int raceIdmem;
-            
+
             if (racePicker.SelectedIndex == -1)
             {
                 raceIdmem = (int)petRace;
             }
             else
             {
-              raceIdmem = races[racePicker.SelectedIndex].RaceId;
+                raceIdmem = races[racePicker.SelectedIndex].RaceId;
             }
             if (breedPicker.SelectedIndex == -1)
             {
@@ -165,10 +165,10 @@ namespace Pethouse.Pages
                     breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId;
                 }
             }
-            
-            
-            
-            
+
+
+
+
 
             try
             {
@@ -177,11 +177,11 @@ namespace Pethouse.Pages
                     UserId = LoginInfo.UserId,
                     PetId = petId,
                     Petname = nameEntry.Text,
-                    RaceId    = raceIdmem,
+                    RaceId = raceIdmem,
                     BreedId = breedIdmem,
                     Birthdate = bdatePicker.Date
                 };
-                
+
                 //Datan serialisointi ja vienti API:lle
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
@@ -199,7 +199,7 @@ namespace Pethouse.Pages
 
                 if (success)  // Näytetään ehdollisesti alert viesti
                 {
-                    await DisplayAlert("Success", "Pet with id:" +petId+ " edited and changes saved.", "Ok"); // (otsikko, teksti, kuittausnapin teksti)
+                    await DisplayAlert("Success", "Pet with id:" + petId + " edited and changes saved.", "Ok"); // (otsikko, teksti, kuittausnapin teksti)
                     MainPage mainPage = new MainPage();
                     mainPage.LoadPets(LoginInfo.UserId, null);
                     _ = Navigation.PopModalAsync();

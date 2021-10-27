@@ -12,7 +12,7 @@ namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddPetPage : ContentPage
-    
+
     {
         string photoString;
         private List<Races> races = new List<Races>();

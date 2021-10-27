@@ -15,7 +15,7 @@ namespace Pethouse
             //Placeholder for later use
             //if (LoginInfo.LoggedIn)
             //{
-               
+
             //    Navigation.PopModalAsync();
             //}
         }
@@ -46,9 +46,9 @@ namespace Pethouse
                 {
                     Login obj = JsonConvert.DeserializeObject<Login>(reply);
                     LoginInfo.UserId = obj.UserId.Value;
-                    LoginInfo.LoggedIn = true;                    
+                    LoginInfo.LoggedIn = true;
                     await Navigation.PopAsync();
-                    
+
                 }
                 //Error handling
                 catch
@@ -60,6 +60,11 @@ namespace Pethouse
             {
                 await DisplayAlert("Unexpected error!\n" + exception.ToString(), "Please try again.", "Close");
             }
+        }
+
+        private void createUserButton_Clicked(object sender, EventArgs e)
+        {
+            _ = Navigation.PushModalAsync(new Pages.AddUserPage());
         }
     }
 }

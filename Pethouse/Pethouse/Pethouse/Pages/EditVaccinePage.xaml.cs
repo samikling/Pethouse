@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 using Pethouse.Models;
+using System;
 using System.Net.Http;
-using Newtonsoft.Json;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,7 +12,7 @@ namespace Pethouse.Pages
     public partial class EditVaccinePage : ContentPage
     {
         Vaccines vacOld = new Vaccines();
-       
+
 
         public EditVaccinePage(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
         {
@@ -24,14 +21,14 @@ namespace Pethouse.Pages
             vacOld.Vacname = vacname;
             vacOld.VacDate = vacdate;
             vacOld.VacExpDate = vacexpdate;
-            LoadDetails(id,vacname,vacdate,vacexpdate);
+            LoadDetails(id, vacname, vacdate, vacexpdate);
         }
 
         private async void LoadDetails(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
         {
-        //Initialize and setup httpclient and base address
-        HttpClient client = new HttpClient();
-        client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+            //Initialize and setup httpclient and base address
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
             //Load vaccines
             Vaccines edit = new Vaccines()
             {

@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Pethouse.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,7 +11,8 @@ namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddVaccinesPage : ContentPage
-    {  private int id = 0;
+    {
+        private int id = 0;
         private string debugSection;
 
         public AddVaccinesPage(int petId)
@@ -25,17 +23,17 @@ namespace Pethouse.Pages
 
         private async void addButton_Clicked(object sender, EventArgs e)
         {
-           
+
             Vaccines vacs = new Vaccines()
             {
                 PetId = id,
                 Vacname = nameEntry.Text,
                 VacDate = vacDatePicker.Date,
-                VacExpDate = vacExpDatePicker.Date                               
+                VacExpDate = vacExpDatePicker.Date
             };
             try
             {
-                
+
                 //Datan serialisointi ja vienti API:lle
                 debugSection = " Serialize";
                 HttpClient client = new HttpClient();

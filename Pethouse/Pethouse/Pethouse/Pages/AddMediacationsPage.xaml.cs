@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
+using Pethouse.Models;
+using System;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Pethouse.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,7 +10,7 @@ namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddMediacationsPage : ContentPage
-    {   
+    {
         private int id = 0;
         private string debugSection;
 
@@ -26,7 +23,7 @@ namespace Pethouse.Pages
         private async void addButton_Clicked(object sender, EventArgs e)
         {
 
-             Medications meds = new Medications()
+            Medications meds = new Medications()
             {
                 PetId = id,
                 Medname = nameEntry.Text,
@@ -65,7 +62,7 @@ namespace Pethouse.Pages
                 }
                 else
                 {
-                    await DisplayAlert("Error", "Vaccine could not be added", "Close"); 
+                    await DisplayAlert("Error", "Vaccine could not be added", "Close");
                 }
             }
             catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen

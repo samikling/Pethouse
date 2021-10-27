@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Pethouse.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Collections.ObjectModel;
-using Pethouse.Models;
 namespace Pethouse.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

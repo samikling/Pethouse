@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 using Pethouse.Models;
-using Newtonsoft.Json;
+using System;
 using System.Net.Http;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,7 +12,7 @@ namespace Pethouse.Pages
     public partial class EditGroomingPage : ContentPage
     {
         Grooming groomingOld = new Grooming();
-        public EditGroomingPage(int id, string groomname, DateTime? groomdate, DateTime? groomexpdate,string comments)
+        public EditGroomingPage(int id, string groomname, DateTime? groomdate, DateTime? groomexpdate, string comments)
         {
             InitializeComponent();
             groomingOld.GroomId = id;
@@ -23,10 +20,10 @@ namespace Pethouse.Pages
             groomingOld.GroomDate = groomdate;
             groomingOld.GroomExpDate = groomexpdate;
             groomingOld.Comments = comments;
-            LoadDetails(id,groomname,groomdate,groomexpdate,comments);
+            LoadDetails(id, groomname, groomdate, groomexpdate, comments);
         }
 
-        private void LoadDetails(int id, string groomname, DateTime? groomdate, DateTime? groomexpdate,string comments)
+        private void LoadDetails(int id, string groomname, DateTime? groomdate, DateTime? groomexpdate, string comments)
         {
             //Initialize and setup httpclient and base address
             HttpClient client = new HttpClient();
@@ -38,7 +35,7 @@ namespace Pethouse.Pages
                 Groomname = groomname,
                 GroomDate = groomdate,
                 GroomExpDate = groomexpdate,
-                Comments= comments
+                Comments = comments
 
             };
             editGroomStack.BindingContext = edit;

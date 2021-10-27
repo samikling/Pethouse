@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 using Pethouse.Models;
-using Newtonsoft.Json;
+using System;
 using System.Net.Http;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,14 +12,14 @@ namespace Pethouse.Pages
     public partial class EditMedicationsPage : ContentPage
     {
         Medications medicationOld = new Medications();
-        public EditMedicationsPage(int id,string medname, DateTime? meddate, DateTime? medexpdate)
+        public EditMedicationsPage(int id, string medname, DateTime? meddate, DateTime? medexpdate)
         {
             InitializeComponent();
             medicationOld.MedId = id;
             medicationOld.Medname = medname;
             medicationOld.MedDate = meddate;
             medicationOld.MedExpDate = medexpdate;
-            LoadDetails(id,medname,meddate,medexpdate);
+            LoadDetails(id, medname, meddate, medexpdate);
         }
 
         private void LoadDetails(int id, string medname, DateTime? meddate, DateTime? medexpdate)

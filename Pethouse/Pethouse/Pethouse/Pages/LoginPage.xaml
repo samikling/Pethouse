@@ -17,12 +17,13 @@
         <Label FontSize="16" Padding="30,24,30,0">
             <Label.FormattedText>
                 <FormattedString>
-                    <FormattedString.Spans>
+                    <FormattedString.Spans >
                         <Span Text="New user? " />
-                        <Span Text="Register here!" TextColor="Blue" FontAttributes="Bold" />
+                        <Span Text="Register here!" TextColor="Blue" FontAttributes="Bold"/>
                     </FormattedString.Spans>
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <Button x:Name="createUserButton" Text="Register" Clicked="createUserButton_Clicked"></Button>
     </StackLayout>
 </ContentPage>

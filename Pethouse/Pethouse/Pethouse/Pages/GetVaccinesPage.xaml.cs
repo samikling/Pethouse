@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 using Pethouse.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
-using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Collections.ObjectModel;
 
 namespace Pethouse.Pages
 {
@@ -32,7 +29,7 @@ namespace Pethouse.Pages
 
         private async void GetVaccines()
         {
-           //Initialize and setup httpclient and base address
+            //Initialize and setup httpclient and base address
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
             //Load vaccines

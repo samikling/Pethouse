@@ -15,35 +15,35 @@ namespace Pethouse
     {
         public MainPage()
         {
-           
+
 
             InitializeComponent();
             //cheks if user is logged in
-                if (!LoginInfo.LoggedIn)
-                {
-                    _ = Navigation.PopAsync();
-                    _ = Navigation.PushAsync(new LoginPage()); //If not true, push a new login page and close the mainpage.
-                }
-                if (LoginInfo.LoggedIn)
-                {
+            if (!LoginInfo.LoggedIn)
+            {
+                _ = Navigation.PopAsync();
+                _ = Navigation.PushAsync(new LoginPage()); //If not true, push a new login page and close the mainpage.
+            }
+            if (LoginInfo.LoggedIn)
+            {
 
-                    OnAppearing();
-                    LoadPets(LoginInfo.UserId, null); //if true, load pets
-                
-                }
+                OnAppearing();
+                LoadPets(LoginInfo.UserId, null); //if true, load pets
 
-            
+            }
+
+
             LoadPets(LoginInfo.UserId, null); //load pets, might be useless and hogging performance, delete if unnecessary
-            
-            
-          
+
+
+
 
             //Initializing the refresh command
             System.Windows.Input.ICommand refreshCommand = new Command(() =>
             {
                 // IsRefreshing is true
                 // Refresh data here
-                LoadPets(LoginInfo.UserId,null);
+                LoadPets(LoginInfo.UserId, null);
                 petsList.IsRefreshing = false;
             });
             petsList.RefreshCommand = refreshCommand; //refresh command
@@ -52,16 +52,16 @@ namespace Pethouse
         protected override void OnAppearing()
         {
             base.OnAppearing();
-           
+
             LoadPets(LoginInfo.UserId, null);
         }
 
-       
+
 
         public async void LoadPets(object sender, EventArgs e)
         {
             //Make sure that the user is logged in and avoid errors.
-            if(LoginInfo.UserId != 0)
+            if (LoginInfo.UserId != 0)
             {
                 //Connection and query to api
                 HttpClient client = new HttpClient(); //Metodin alustus, jolla yhdistetään API:n

@@ -97,7 +97,7 @@ namespace Pethouse.Pages
                     catch (Exception ex)
                     {
 
-                        await DisplayAlert("Error", ex.ToString() , "ok");
+                        await DisplayAlert("Error", ex.ToString(), "ok");
                     }
                     //txtCellVacName.Detail = vaccines.Vacname.ToString();
                 }
@@ -112,7 +112,7 @@ namespace Pethouse.Pages
                     txtCellVacDate.IsEnabled = false;
                     //txtCellVacName.Detail = "Unknown";
                 }
-                
+
                 //Medications
                 if (medications != null)
                 {
@@ -163,7 +163,7 @@ namespace Pethouse.Pages
             {
                 BaseAddress = new Uri("https://pethouse.azurewebsites.net/")
             };
-            
+
 
             //Delete pets vacs if any
             string jsonRequestVacCount = await client.GetStringAsync("/api/vaccines/count/" + petId);
@@ -179,7 +179,7 @@ namespace Pethouse.Pages
                         {
                             HttpResponseMessage message = await client.DeleteAsync("/api/vaccines/list/" + petId);
 
- }
+                        }
                         catch (Exception ex)
                         {
                             string error = ex.Message.ToString();
@@ -294,7 +294,8 @@ namespace Pethouse.Pages
             {
                 _ = Navigation.PushModalAsync(new AddVaccinesPage(petId));
 
-            }else if (action == "Medication")
+            }
+            else if (action == "Medication")
             {
                 _ = Navigation.PushModalAsync(new AddMediacationsPage(petId)); //add pet id as parameter
             }
@@ -302,7 +303,7 @@ namespace Pethouse.Pages
             {
                 _ = Navigation.PushModalAsync(new AddGrooomingPage(petId));  //add pet id as parameter
             }
-            
+
         }
         /*Todo:
          * GetMedicationsPage
