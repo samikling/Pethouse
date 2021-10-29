@@ -18,6 +18,8 @@ namespace Pethouse.Pages
         public int? petRace;
         public int? petBreed;
         public int petId;
+        public Pets pet = new Pets();
+        public string photoString;
         public EditPetPage(int idParam)
         {
 
@@ -35,7 +37,6 @@ namespace Pethouse.Pages
         {
             int petId = (int)sender;
 
-            Pets pet = new Pets();
             HttpClient client = new HttpClient
             {
                 BaseAddress = new Uri("https://pethouse.azurewebsites.net/")
@@ -43,6 +44,7 @@ namespace Pethouse.Pages
             //Load pet
             string jsonPet = await client.GetStringAsync("/api/pets/" + petId);
             pet = JsonConvert.DeserializeObject<Pets>(jsonPet);
+            photoString = pet.Photo;
             petRace = pet.RaceId;
             petBreed = pet.BreedId;
             //Load breed information
@@ -99,6 +101,7 @@ namespace Pethouse.Pages
                     if (breeds.RaceId == 1)
                     {
                         breed.Add(breeds.Breedname);
+                        photoString = "https://th.bing.com/th/id/OIP.IRgtzHgst1qB8jRQHvK-3QHaHY?pid=ImgDet&rs=1";
                     }
 
                 }
@@ -108,6 +111,9 @@ namespace Pethouse.Pages
                     if (breeds.RaceId == 2)
                     {
                         breed.Add(breeds.Breedname);
+                        photoString = "https://th.bing.com/th/id/R.bbc2d15a5fab1cc7a169dcaea2fa7392?rik=%2bRQy90HTXnBo%2fQ&riu=http%3a%2f%2fgetdrawings.com" +
+              "%2fimg%2fblack-cat-silhouette-template-12.jpg&ehk=d1MnyeourS%2fp1gXKYl7%2foDDj9i6a3Vx%2bcG29dTRnMY8%3d&risl=&pid=ImgRaw&r=0";
+
                     }
                 }
             }
@@ -177,6 +183,7 @@ namespace Pethouse.Pages
                     UserId = LoginInfo.UserId,
                     PetId = petId,
                     Petname = nameEntry.Text,
+                    Photo = photoString,
                     RaceId = raceIdmem,
                     BreedId = breedIdmem,
                     Birthdate = bdatePicker.Date

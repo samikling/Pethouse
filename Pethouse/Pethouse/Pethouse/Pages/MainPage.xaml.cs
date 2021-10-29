@@ -15,24 +15,23 @@ namespace Pethouse
     {
         public MainPage()
         {
-
+            
 
             InitializeComponent();
             //cheks if user is logged in
-            if (!LoginInfo.LoggedIn)
-            {
-                _ = Navigation.PopAsync();
-                _ = Navigation.PushAsync(new LoginPage()); //If not true, push a new login page and close the mainpage.
-            }
+            
             if (LoginInfo.LoggedIn)
             {
 
                 OnAppearing();
+                
                 LoadPets(LoginInfo.UserId, null); //if true, load pets
 
             }
 
 
+            OnBackButtonPressed();
+            OnAppearing();
             LoadPets(LoginInfo.UserId, null); //load pets, might be useless and hogging performance, delete if unnecessary
 
 
@@ -49,11 +48,23 @@ namespace Pethouse
             petsList.RefreshCommand = refreshCommand; //refresh command
 
         }
+            protected override bool OnBackButtonPressed()
+            {
+                //_ = Navigation.PopToRootAsync();
+                return true;
+            }
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            LoadPets(LoginInfo.UserId, null);
+            if (!LoginInfo.LoggedIn)
+            {
+                //_ = Navigation.PopAsync();
+                _ = Navigation.PushAsync(new LoginPage()); //If not true, push a new login page and close the mainpage.
+            }
+            else
+            {
+                LoadPets(LoginInfo.UserId, null);
+            }
         }
 
 

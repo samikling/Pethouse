@@ -12,12 +12,20 @@ namespace Pethouse
         public LoginPage()
         {
             InitializeComponent();
-            //Placeholder for later use
+            OnAppearing();
             //if (LoginInfo.LoggedIn)
-            //{
-
-            //    Navigation.PopModalAsync();
-            //}
+            //    {
+            //         Navigation.PopAsync();
+            //    }
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (LoginInfo.LoggedIn)
+            {
+                _ = Navigation.PopAsync();
+                
+            }
         }
 
         private async void LoginBtn_OnClicked(Object sender, EventArgs e)
@@ -47,7 +55,9 @@ namespace Pethouse
                     Login obj = JsonConvert.DeserializeObject<Login>(reply);
                     LoginInfo.UserId = obj.UserId.Value;
                     LoginInfo.LoggedIn = true;
-                    await Navigation.PopAsync();
+                    //Navigation.InsertPageBefore(this , new MainPage());
+                    await Navigation.PushAsync(new MainPage());
+                    
 
                 }
                 //Error handling

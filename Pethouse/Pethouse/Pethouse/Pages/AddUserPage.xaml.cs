@@ -18,66 +18,74 @@ namespace Pethouse.Pages
 
         private async void submitButton_Clicked(object sender, EventArgs e)
         {
-            if (passwordEntry.Text == pwcheckEntry.Text)
+            if (pwcheckEntry != null && nameEntry != null)
             {
-
-                Users user = new Users()
-                {
-                    Username = nameEntry.Text,
-                    Password = pwcheckEntry.Text,
-                    Email = "placeholder@placeholder.com"
-
-                };
-                try
+                if (passwordEntry.Text == pwcheckEntry.Text)
                 {
 
-                    //Datan serialisointi ja vienti API:lle
+                    Users user = new Users()
+                    {
+                        Username = nameEntry.Text,
+                        Password = pwcheckEntry.Text,
+                        Email = "placeholder@placeholder.com"
 
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
-                    string input = JsonConvert.SerializeObject(user);
-                    StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
-
-                    // Lähetetään serialisoitu objekti back-endiin Post pyyntönä
-
-                    HttpResponseMessage message = await client.PostAsync("/api/users/new", content);
-
-                    // Otetaan vastaan palvelimen vastaus
-
-                    string reply = await message.Content.ReadAsStringAsync();
-
-                    //Asetetaan vastaus serialisoituna success muuttujaan
-
-                    bool success = JsonConvert.DeserializeObject<bool>(reply);
-
-
-                    if (success)  // Näytetään ehdollisesti alert viesti
+                    };
+                    try
                     {
 
-                        await DisplayAlert("New user created", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
-                        _ = Navigation.PopModalAsync();
+                        //Datan serialisointi ja vienti API:lle
+
+                        HttpClient client = new HttpClient();
+                        client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+                        string input = JsonConvert.SerializeObject(user);
+                        StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
+
+                        // Lähetetään serialisoitu objekti back-endiin Post pyyntönä
+
+                        HttpResponseMessage message = await client.PostAsync("/api/users/new", content);
+
+                        // Otetaan vastaan palvelimen vastaus
+
+                        string reply = await message.Content.ReadAsStringAsync();
+
+                        //Asetetaan vastaus serialisoituna success muuttujaan
+
+                        bool success = JsonConvert.DeserializeObject<bool>(reply);
 
 
+                        if (success)  // Näytetään ehdollisesti alert viesti
+                        {
+
+                            await DisplayAlert("New user created", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                            _ = Navigation.PopModalAsync();
+
+
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", "User could not be added, try different username.", "Close"); // Muutettu 4.5.
+                        }
                     }
-                    else
+                    catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
                     {
-                        await DisplayAlert("Error", "User could not be added, try different username.", "Close"); // Muutettu 4.5.
+
+                        string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
+                        string errorMessage2 = ex.Message;
+                        await DisplayAlert(errorMessage1, errorMessage2, "Error");
+                        //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
+                        //debugEntry2.Text = errorMessage2;
                     }
                 }
-                catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
+                else
                 {
-
-                    string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
-                    string errorMessage2 = ex.Message;
-                    await DisplayAlert(errorMessage1, errorMessage2, "Error");
-                    //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
-                    //debugEntry2.Text = errorMessage2;
+                    await DisplayAlert("Error", "Passwords don't match. Check your password.", "Ok");
                 }
             }
             else
             {
-                await DisplayAlert("Error", "Passwords don't match. Check your password.", "Ok");
+                await DisplayAlert("Error", "Please fill all fields", "Ok");
             }
+            
         }
     }
 }

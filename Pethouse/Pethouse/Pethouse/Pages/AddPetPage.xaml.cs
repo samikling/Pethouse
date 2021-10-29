@@ -14,7 +14,7 @@ namespace Pethouse.Pages
     public partial class AddPetPage : ContentPage
 
     {
-        string photoString;
+        public string photoString;
         private List<Races> races = new List<Races>();
         private List<Breeds> breedsList = new List<Breeds>();
         public AddPetPage()
@@ -42,7 +42,7 @@ namespace Pethouse.Pages
             }
             racePicker.ItemsSource = raceList;
         }
-        public async void LoadBreeds(object sender, EventArgs e)
+        public async void LoadBreeds()//object sender, EventArgs e
         {
 
             HttpClient client = new HttpClient();
@@ -92,64 +92,84 @@ namespace Pethouse.Pages
          */
         public async void AddPet(object sender, EventArgs e)
         {
+
             int breedIdmem = 0;
             int raceIdmem = 0;
-            raceIdmem = races[racePicker.SelectedIndex].RaceId;
-            breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId;
-
-            //debugEntry.Text = LoginInfo.UserId.ToString()
-            //    + nameEntry.Text + bdatePicker.Date.ToString() +
-            //    raceIdmem.ToString() + breedIdmem.ToString();
-
-
-            Pets pets = new Pets()
+            if (racePicker.SelectedIndex < 0)
             {
-                UserId = LoginInfo.UserId,
-                Petname = nameEntry.Text,
-                Birthdate = bdatePicker.Date,
-                Photo = photoString,
-                RaceId = raceIdmem,
-                BreedId = breedIdmem
-            };
-            try
+                await DisplayAlert("Error","Select Race and Breed","Ok");
+
+            }
+            else if (breedPicker.SelectedIndex < 0)
             {
-                //Datan serialisointi ja vienti API:lle
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
-                string input = JsonConvert.SerializeObject(pets);
-                StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
-
-                // Lähetetään serialisoitu objekti back-endiin Post pyyntönä
-                HttpResponseMessage message = await client.PostAsync("/api/pets/user", content);
-
-                // Otetaan vastaan palvelimen vastaus
-                string reply = await message.Content.ReadAsStringAsync();
-
-                //Asetetaan vastaus serialisoituna success muuttujaan
-                bool success = JsonConvert.DeserializeObject<bool>(reply);
+                await DisplayAlert("Error", "Select Race and Breed", "Ok");
+            }
+            else
+            {
+                raceIdmem = races[racePicker.SelectedIndex].RaceId;
+                breedIdmem = breedsList[breedPicker.SelectedIndex].BreedId;
 
 
-                if (success)  // Näytetään ehdollisesti alert viesti
+                if (nameEntry.Text != null && racePicker.SelectedItem != null && breedPicker.SelectedItem != null)
                 {
+                    Pets pets = new Pets()
+                    {
+                        UserId = LoginInfo.UserId,
+                        Petname = nameEntry.Text,
+                        Birthdate = bdatePicker.Date,
+                        Photo = photoString,
+                        RaceId = raceIdmem,
+                        BreedId = breedIdmem
+                    };
+                    try
+                    {
+                        //Datan serialisointi ja vienti API:lle
+                        HttpClient client = new HttpClient();
+                        client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+                        string input = JsonConvert.SerializeObject(pets);
+                        StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
 
-                    await DisplayAlert("New pet added", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
-                    _ = Navigation.PopModalAsync();
+                        // Lähetetään serialisoitu objekti back-endiin Post pyyntönä
+                        HttpResponseMessage message = await client.PostAsync("/api/pets/user", content);
+
+                        // Otetaan vastaan palvelimen vastaus
+                        string reply = await message.Content.ReadAsStringAsync();
+
+                        //Asetetaan vastaus serialisoituna success muuttujaan
+                        bool success = JsonConvert.DeserializeObject<bool>(reply);
 
 
+                        if (success)  // Näytetään ehdollisesti alert viesti
+                        {
+
+                            await DisplayAlert("New pet added", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                            _ = Navigation.PopModalAsync();
+
+
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", "Error", "Error"); // Muutettu 4.5.
+                        }
+                    }
+                    catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
+                    {
+
+                        string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
+                        string errorMessage2 = ex.Message;
+                        //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
+                        //debugEntry2.Text = errorMessage2;
+                    }
                 }
                 else
                 {
-                    await DisplayAlert("Error", "Error", "Error"); // Muutettu 4.5.
+                    await DisplayAlert("Oopsie!", "You left some of the fields empty. Please fill in all the fields and try again.", "Ok");
                 }
             }
-            catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
-            {
+            
+            
 
-                string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
-                string errorMessage2 = ex.Message;
-                //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
-                //debugEntry2.Text = errorMessage2;
-            }
+           
         }
 
 
@@ -164,7 +184,7 @@ namespace Pethouse.Pages
             if (racePicker.SelectedItem != null)
             {
                 breedPicker.IsEnabled = true;
-                LoadBreeds(null, null);
+                LoadBreeds();
             }
             else
             {

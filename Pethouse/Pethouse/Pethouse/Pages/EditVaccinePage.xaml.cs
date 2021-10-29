@@ -24,7 +24,7 @@ namespace Pethouse.Pages
             LoadDetails(id, vacname, vacdate, vacexpdate);
         }
 
-        private async void LoadDetails(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
+        private void LoadDetails(int id, string vacname, DateTime? vacdate, DateTime? vacexpdate)
         {
             //Initialize and setup httpclient and base address
             HttpClient client = new HttpClient();

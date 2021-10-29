@@ -13,6 +13,9 @@ namespace Pethouse.Pages
     {
         Pethouse.Models.Breeds model = new Pethouse.Models.Breeds();
         int petId;
+        Vaccines localVac;
+        Medications localMed;
+        Grooming localGroom;
         public PetDetailsPage(int idParam)
         {
             InitializeComponent();
@@ -26,12 +29,7 @@ namespace Pethouse.Pages
 
             LoadDetails(null, null);
         }
-        /// <summary>
-        /// public void LoadDetails(object, EventArgs)
-        /// Mystisesti tämä hajosi kun lemmikin lisäys toisella sivulla alkoi toimia. Tutki ja korjaa....
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
         private async void LoadDetails(object sender, EventArgs e)
         {
             Pets pet = new Pets();
@@ -49,19 +47,19 @@ namespace Pethouse.Pages
             //Load Vaccines
             string jsonVaccines = await client.GetStringAsync("/api/Vaccines/" + petId);
             Vaccines vaccines = JsonConvert.DeserializeObject<Vaccines>(jsonVaccines);
-
+            localVac = vaccines;
 
 
             //Load Grooming
             string jsonGrooming = await client.GetStringAsync("/api/Grooming/" + petId);
             Grooming grooming = JsonConvert.DeserializeObject<Grooming>(jsonGrooming);
-
+            localGroom = grooming;
 
 
             //Load Medicines
             string jsonMedications = await client.GetStringAsync("/api/Medications/" + petId);
             Medications medications = JsonConvert.DeserializeObject<Medications>(jsonMedications);
-
+            localMed = medications;
 
 
             //Set parameters to view
@@ -329,17 +327,18 @@ namespace Pethouse.Pages
 
         private void txtCellVacName_Tapped(object sender, EventArgs e)
         {
+            _ = Navigation.PushModalAsync(new EditVaccinePage(localVac.VacId,localVac.Vacname,localVac.VacDate,localVac.VacExpDate));
 
         }
 
         private void txtCellMedName_Tapped(object sender, EventArgs e)
         {
-
+            _ = Navigation.PushModalAsync(new EditMedicationsPage(localMed.MedId,localMed.Medname,localMed.MedDate,localMed.MedExpDate));
         }
 
         private void txtCellGroomName_Tapped(object sender, EventArgs e)
         {
-
+            _ = Navigation.PushModalAsync(new EditGroomingPage(localGroom.GroomId,localGroom.Groomname,localGroom.GroomDate,localGroom.GroomExpDate,localGroom.Comments));
         }
     }
 }
