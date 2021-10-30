@@ -20,19 +20,19 @@ namespace Pethouse
             InitializeComponent();
             //cheks if user is logged in
             
-            if (LoginInfo.LoggedIn)
-            {
+            //if (LoginInfo.LoggedIn)
+            //{
 
-                OnAppearing();
+            //    OnAppearing();
                 
-                LoadPets(LoginInfo.UserId, null); //if true, load pets
+            //    LoadPets(LoginInfo.UserId, null); //if true, load pets
 
-            }
+            //}
 
 
             OnBackButtonPressed();
             OnAppearing();
-            LoadPets(LoginInfo.UserId, null); //load pets, might be useless and hogging performance, delete if unnecessary
+            //LoadPets(LoginInfo.UserId, null); //load pets, might be useless and hogging performance, delete if unnecessary
 
 
 
@@ -56,6 +56,18 @@ namespace Pethouse
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            //if (petsList.ItemsSource.Equals(null))
+            //{
+            //    LoadPets(LoginInfo.UserId, null);
+            //}
+            System.Windows.Input.ICommand refreshCommand = new Command(() =>
+            {
+                // IsRefreshing is true
+                // Refresh data here
+                LoadPets(LoginInfo.UserId, null);
+                petsList.IsRefreshing = false;
+            });
+            petsList.RefreshCommand = refreshCommand;
             if (!LoginInfo.LoggedIn)
             {
                 //_ = Navigation.PopAsync();
@@ -86,7 +98,7 @@ namespace Pethouse
                 //If petlist is empty and user has no pets --- Button to add new pets
                 if (dataa.Count == 0)
                 {
-                    petsList.IsVisible = false;
+                    petsList.IsVisible = true;
                     addPetBtn.IsVisible = true;
                 }
 

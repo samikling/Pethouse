@@ -106,8 +106,8 @@ namespace Pethouse.Pages
                 }
                 else
                 {
-                    txtCellVacName.IsEnabled = false;
-                    txtCellVacDate.IsEnabled = false;
+                    txtCellVacName.IsEnabled = true;
+                    txtCellVacDate.IsEnabled = true;
                     //txtCellVacName.Detail = "Unknown";
                 }
 
@@ -118,7 +118,7 @@ namespace Pethouse.Pages
                 }
                 else
                 {
-                    txtCellMedName.IsEnabled = false;
+                    txtCellMedName.IsEnabled = true;
                 }
                 if (medications != null)
                 {
@@ -126,7 +126,7 @@ namespace Pethouse.Pages
                 }
                 else
                 {
-                    txtCellMedDate.IsEnabled = false;
+                    txtCellMedDate.IsEnabled = true;
                 }
                 //Treatments
                 if (grooming != null)
@@ -135,7 +135,7 @@ namespace Pethouse.Pages
                 }
                 else
                 {
-                    txtCellGroomName.IsEnabled = false;
+                    txtCellGroomName.IsEnabled = true;
                 }
                 if (grooming != null)
                 {
@@ -143,7 +143,7 @@ namespace Pethouse.Pages
                 }
                 else
                 {
-                    txtCellGroomDate.IsEnabled = false;
+                    txtCellGroomDate.IsEnabled = true;
                 }
             }
             catch (Exception ex)
@@ -327,18 +327,28 @@ namespace Pethouse.Pages
 
         private void txtCellVacName_Tapped(object sender, EventArgs e)
         {
-            _ = Navigation.PushModalAsync(new EditVaccinePage(localVac.VacId,localVac.Vacname,localVac.VacDate,localVac.VacExpDate));
+            if (localVac != null)
+            {
+                _ = Navigation.PushModalAsync(new EditVaccinePage(localVac.VacId,localVac.Vacname,localVac.VacDate,localVac.VacExpDate));
+
+            }
 
         }
 
         private void txtCellMedName_Tapped(object sender, EventArgs e)
         {
-            _ = Navigation.PushModalAsync(new EditMedicationsPage(localMed.MedId,localMed.Medname,localMed.MedDate,localMed.MedExpDate));
+            if (localMed != null)
+            {
+                _ = Navigation.PushModalAsync(new EditMedicationsPage(localMed.MedId,localMed.Medname,localMed.MedDate,localMed.MedExpDate));
+            }
         }
 
         private void txtCellGroomName_Tapped(object sender, EventArgs e)
         {
-            _ = Navigation.PushModalAsync(new EditGroomingPage(localGroom.GroomId,localGroom.Groomname,localGroom.GroomDate,localGroom.GroomExpDate,localGroom.Comments));
+            if (localGroom != null)
+            {
+                _ = Navigation.PushModalAsync(new EditGroomingPage(localGroom.GroomId,localGroom.Groomname,localGroom.GroomDate,localGroom.GroomExpDate,localGroom.Comments));
+            }
         }
     }
 }
