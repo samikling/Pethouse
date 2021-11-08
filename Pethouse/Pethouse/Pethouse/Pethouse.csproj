@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <PackageIcon>Ikoni.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -12,6 +13,13 @@
 
   <ItemGroup>
     <None Remove="Assets\plusbtn.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\..\OneDrive\Careeria\Opinnäytetyö\Ikoni.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
