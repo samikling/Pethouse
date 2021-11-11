@@ -25,6 +25,7 @@ namespace Pethouse.Pages
 
         private void LoadDetails(int id, string groomname, DateTime? groomdate, DateTime? groomexpdate, string comments)
         {
+           
             //Initialize and setup httpclient and base address
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
@@ -39,60 +40,63 @@ namespace Pethouse.Pages
 
             };
             editGroomStack.BindingContext = edit;
-            //string jsonString = JsonConvert.SerializeObject(edit);
-            //string json = await client.GetStringAsync("/api/vaccines/edit" + id);
-            //IEnumerable<Vaccines> vacs = JsonConvert.DeserializeObject<Vaccines[]>(json);
-            //ObservableCollection<Vaccines> dataa = new ObservableCollection<Vaccines>(vacs);
+            
 
         }
 
         private async void saveButton_Clicked(object sender, EventArgs e)
         {
-            try
+            if (nameEntry.Text != null)
             {
-                int id = groomingOld.GroomId;
-                Grooming groomNew = new Grooming
+                try
                 {
-                    Groomname = nameEntry.Text,
-                    GroomDate = groomdatePicker.Date,
-                    GroomExpDate = groomexpdatePicker.Date,
-                    Comments = commentsEditor.Text
-                };
-                //Datan serialisointi ja vienti API:lle
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
-                string newObject = JsonConvert.SerializeObject(groomNew);
-                StringContent newContent = new StringContent(newObject, Encoding.UTF8, "application/json");
+                    int id = groomingOld.GroomId;
+                    Grooming groomNew = new Grooming
+                    {
+                        Groomname = nameEntry.Text,
+                        GroomDate = groomdatePicker.Date,
+                        GroomExpDate = groomexpdatePicker.Date,
+                        Comments = commentsEditor.Text
+                    };
+                    //Datan serialisointi ja vienti API:lle
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+                    string newObject = JsonConvert.SerializeObject(groomNew);
+                    StringContent newContent = new StringContent(newObject, Encoding.UTF8, "application/json");
 
 
-                // Lähetetään serialisoitu objekti back-endiin Put pyyntönä
-                HttpResponseMessage message = await client.PutAsync("/api/grooming/" + id, newContent);
+                    // Lähetetään serialisoitu objekti back-endiin Put pyyntönä
+                    HttpResponseMessage message = await client.PutAsync("/api/grooming/" + id, newContent);
 
-                // Otetaan vastaan palvelimen vastaus
-                string reply = await message.Content.ReadAsStringAsync();
+                    // Otetaan vastaan palvelimen vastaus
+                    string reply = await message.Content.ReadAsStringAsync();
 
-                //Asetetaan vastaus serialisoituna success muuttujaan
-                bool success = JsonConvert.DeserializeObject<bool>(reply);
+                    //Asetetaan vastaus serialisoituna success muuttujaan
+                    bool success = JsonConvert.DeserializeObject<bool>(reply);
 
-                if (success)  // Näytetään ehdollisesti alert viesti
-                {
-                    await DisplayAlert("Operation " + groomNew.Groomname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
-                    MainPage mainPage = new MainPage();
-                    mainPage.LoadPets(LoginInfo.UserId, null);
-                    _ = Navigation.PopModalAsync();
+                    if (success)  // Näytetään ehdollisesti alert viesti
+                    {
+                        await DisplayAlert("Operation " + groomNew.Groomname.ToString() + " - Edit", "Success", "Done"); // (otsikko, teksti, kuittausnapin teksti)
+                        MainPage mainPage = new MainPage();
+                        mainPage.LoadPets(LoginInfo.UserId, null);
+                        _ = Navigation.PopModalAsync();
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Edit unsuccessfull", "Close"); // Muutettu 4.5.
+                    }
                 }
-                else
+                catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
                 {
-                    await DisplayAlert("Error", "Edit unsuccessfull", "Close"); // Muutettu 4.5.
+                    string errorMessage1 = "Catch: " + ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
+                    string errorMessage2 = "Catch: " + ex.Message;
+                    await DisplayAlert("Error", errorMessage1, "Close"); // ...näyttäminen popup ikkunassa
+                    await DisplayAlert("Error", errorMessage2, "Close");
                 }
-            }
-            catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
+            }else
             {
-                string errorMessage1 = "Catch: " + ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
-                string errorMessage2 = "Catch: " + ex.Message;
-                await DisplayAlert("Error", errorMessage1, "Close"); // ...näyttäminen popup ikkunassa
-                await DisplayAlert("Error", errorMessage2, "Close");
-            }
+                await DisplayAlert("Oopsie!", "Please fill all the fields.", "Ok");
+            }    
 
         }
 

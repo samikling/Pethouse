@@ -21,11 +21,6 @@ namespace Pethouse.Pages
         {
             InitializeComponent();
             LoadRaces();
-
-
-
-
-
         }
         public async void LoadRaces()
         {
@@ -77,19 +72,6 @@ namespace Pethouse.Pages
 
 
         }
-        /*
-         *--------------------------------------------------------------------------
-         * 25.08.2021-Lisätty toiminto joka hakee Pickkereiden indeksin perusteella
-         * BreedId ja RaceId tiedon. Lisätty Debug tekstikenttä. Lisätty ADD nappi.
-         * Lisätty Rodun hakutoiminto.
-         * 26.10.2021 Muokattu ulkoasua, poistettu turhat debug laatikot, sekä valo-
-         * kuva nappi toistaiseksi.
-         * -------------------------------------------------------------------------
-         * TODO:
-         * -------------------------------------------------------------------------
-         * Pitää myös selvittää mitä tehdään valokuva toiminnon kanssa.
-         * -------------------------------------------------------------------------
-         */
         public async void AddPet(object sender, EventArgs e)
         {
 
@@ -157,8 +139,6 @@ namespace Pethouse.Pages
 
                         string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
                         string errorMessage2 = ex.Message;
-                        //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
-                        //debugEntry2.Text = errorMessage2;
                     }
                 }
                 else

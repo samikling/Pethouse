@@ -12,31 +12,14 @@ namespace Pethouse
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
-    {
+    {/// <summary>
+    /// Load main page. Refresh if necessary. Redirect to login page if not logged in.
+    /// </summary>
         public MainPage()
         {
-            
-
-            InitializeComponent();
-            //cheks if user is logged in
-            
-            //if (LoginInfo.LoggedIn)
-            //{
-
-            //    OnAppearing();
-                
-            //    LoadPets(LoginInfo.UserId, null); //if true, load pets
-
-            //}
-
-
-            OnBackButtonPressed();
-            OnAppearing();
-            //LoadPets(LoginInfo.UserId, null); //load pets, might be useless and hogging performance, delete if unnecessary
-
-
-
-
+            InitializeComponent(); //Initialize
+            OnBackButtonPressed(); //Custom behaviour -> Do nothing
+            OnAppearing(); //Custom behavior == LoadPets or LoginPage
             //Initializing the refresh command
             System.Windows.Input.ICommand refreshCommand = new Command(() =>
             {
@@ -50,16 +33,11 @@ namespace Pethouse
         }
             protected override bool OnBackButtonPressed()
             {
-                //_ = Navigation.PopToRootAsync();
-                return true;
+                return true; // => Do nothing
             }
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //if (petsList.ItemsSource.Equals(null))
-            //{
-            //    LoadPets(LoginInfo.UserId, null);
-            //}
             System.Windows.Input.ICommand refreshCommand = new Command(() =>
             {
                 // IsRefreshing is true
@@ -70,7 +48,6 @@ namespace Pethouse
             petsList.RefreshCommand = refreshCommand;
             if (!LoginInfo.LoggedIn)
             {
-                //_ = Navigation.PopAsync();
                 _ = Navigation.PushAsync(new LoginPage()); //If not true, push a new login page and close the mainpage.
             }
             else
@@ -80,7 +57,11 @@ namespace Pethouse
         }
 
 
-
+        /// <summary>
+        /// Load users pets by userId if any.
+        /// </summary>
+        /// <param name="sender" ></param>
+        /// <param name="e"></param>
         public async void LoadPets(object sender, EventArgs e)
         {
             //Make sure that the user is logged in and avoid errors.

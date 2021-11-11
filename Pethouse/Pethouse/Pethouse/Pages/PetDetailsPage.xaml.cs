@@ -29,7 +29,6 @@ namespace Pethouse.Pages
 
             LoadDetails(null, null);
         }
-        
         private async void LoadDetails(object sender, EventArgs e)
         {
             Pets pet = new Pets();
@@ -152,7 +151,11 @@ namespace Pethouse.Pages
                 Debug.WriteLine("Virhe " + ex);
             }
         }
-
+        /// <summary>
+        /// Deletes a pet by Id and all corresponding vaccines, medications and treatments
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Delete_Button_Clicked(object sender, EventArgs e)
         {
             bool response = await DisplayAlert("Delete " + petId + "?", "Really Delete?", "Yes", "No");
@@ -279,12 +282,20 @@ namespace Pethouse.Pages
                 await DisplayAlert("Error", error, "Ok");
             }
         }
-
+        /// <summary>
+        /// Open pet edit page, send petId as a parameter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Edit_Button_Clicked(object sender, EventArgs e)
         {
             _ = Navigation.PushModalAsync(new EditPetPage(petId));
         }
-
+        /// <summary>
+        /// Open a new page based on selection. Send petId as a parameter.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void addTreatmentButton_Clicked(object sender, EventArgs e)
         {
             string action = await DisplayActionSheet("What type of treatment would you like to add?", "Cancel", null, "Vaccine", "Medication", "Treatment");
@@ -303,13 +314,7 @@ namespace Pethouse.Pages
             }
 
         }
-        /*Todo:
-         * GetMedicationsPage
-         * GetGroomingPage
-         * vacname_tapped => open edit vaccination
-         * medname_tapped => open edit medication
-         * groomname_tapped => open edit grooming
-         */
+        
         private void vaccinesButton_Clicked(object sender, EventArgs e)
         {
             _ = Navigation.PushModalAsync(new GetVaccinesPage(petId));
@@ -352,29 +357,3 @@ namespace Pethouse.Pages
         }
     }
 }
-/*!!!TODO:
- * 
- * OLD:
- * Näkyy vähän hölmösti tiedot tällä hetkellä.
- * Voisi yrittää saada niitä näkymään vähän järkevämmin
- * 
- * Pitää miettiä mikä on järkevin tapa, että käyttäjä lähtee muokkaamaan ja syöttämään uusia tietoja
- * Onko se painamalla rokote kohtaa, vai lisätäänkö erillinen nappi tätä varten´?
- * 
- * 27.8.2021
- * Delete nappi toimii. Seuraavaksi täytyy muuttaa toimintoa niin, että deletoimisen jälkeen palataan
- * main view sivulle ja päivitetäään lista. Listan päivitys täytyy lisätä myös lemmikin lisäyksen ja muokkauksen jälkeen.
- * Muita tekemättömiä asioita:
- * - Login ikkunan piilotus kirjautumisen jälkeen
- * - Uuden käyttäjän luominen
- * - Lemmikin editoiminen
- * - Rokotteiden, lääkkeiden ja hoitojen lisäys, muokkaus ja poisto
- * - Muistutustoiminto
- * - Valokuvatoiminto tai vastaava
- * 14.10.2021
- * - Lääkkeiden ja hoitojen lisäys toimii.
- * 
- * 
- *
- * 
- */

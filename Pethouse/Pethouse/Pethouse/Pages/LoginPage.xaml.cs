@@ -13,10 +13,6 @@ namespace Pethouse
         {
             InitializeComponent();
             OnAppearing();
-            //if (LoginInfo.LoggedIn)
-            //    {
-            //         Navigation.PopAsync();
-            //    }
         }
         protected override void OnAppearing()
         {

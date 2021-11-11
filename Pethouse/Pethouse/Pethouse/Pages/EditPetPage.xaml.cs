@@ -175,54 +175,61 @@ namespace Pethouse.Pages
 
 
 
-
-            try
+            if (nameEntry.Text != null)
             {
-                var pets = new Pets
+                try
                 {
-                    UserId = LoginInfo.UserId,
-                    PetId = petId,
-                    Petname = nameEntry.Text,
-                    Photo = photoString,
-                    RaceId = raceIdmem,
-                    BreedId = breedIdmem,
-                    Birthdate = bdatePicker.Date
-                };
+                    var pets = new Pets
+                    {
+                        UserId = LoginInfo.UserId,
+                        PetId = petId,
+                        Petname = nameEntry.Text,
+                        Photo = photoString,
+                        RaceId = raceIdmem,
+                        BreedId = breedIdmem,
+                        Birthdate = bdatePicker.Date
+                    };
 
-                //Datan serialisointi ja vienti API:lle
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
-                string input = JsonConvert.SerializeObject(pets);
-                StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
+                    //Datan serialisointi ja vienti API:lle
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri("https://pethouse.azurewebsites.net/");
+                    string input = JsonConvert.SerializeObject(pets);
+                    StringContent content = new StringContent(input, Encoding.UTF8, "application/json");
 
-                // Lähetetään serialisoitu objekti back-endiin Post pyyntönä
-                HttpResponseMessage message = await client.PutAsync("/api/pets/" + petId, content);
+                    // Lähetetään serialisoitu objekti back-endiin Post pyyntönä
+                    HttpResponseMessage message = await client.PutAsync("/api/pets/" + petId, content);
 
-                // Otetaan vastaan palvelimen vastaus
-                string reply = await message.Content.ReadAsStringAsync();
+                    // Otetaan vastaan palvelimen vastaus
+                    string reply = await message.Content.ReadAsStringAsync();
 
-                //Asetetaan vastaus serialisoituna success muuttujaan
-                bool success = JsonConvert.DeserializeObject<bool>(reply);
+                    //Asetetaan vastaus serialisoituna success muuttujaan
+                    bool success = JsonConvert.DeserializeObject<bool>(reply);
 
-                if (success)  // Näytetään ehdollisesti alert viesti
-                {
-                    await DisplayAlert("Success", "Pet with id:" + petId + " edited and changes saved.", "Ok"); // (otsikko, teksti, kuittausnapin teksti)
-                    MainPage mainPage = new MainPage();
-                    mainPage.LoadPets(LoginInfo.UserId, null);
-                    _ = Navigation.PopModalAsync();
+                    if (success)  // Näytetään ehdollisesti alert viesti
+                    {
+                        await DisplayAlert("Success", "Pet with id:" + petId + " edited and changes saved.", "Ok"); // (otsikko, teksti, kuittausnapin teksti)
+                        MainPage mainPage = new MainPage();
+                        mainPage.LoadPets(LoginInfo.UserId, null);
+                        _ = Navigation.PopModalAsync();
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Edit unsuccessfull", "Close"); // Muutettu 4.5.
+                    }
                 }
-                else
+                catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
                 {
-                    await DisplayAlert("Error", "Edit unsuccessfull", "Close"); // Muutettu 4.5.
+                    string errorMessage1 = "Catch: " + ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
+                    string errorMessage2 = "Catch: " + ex.Message;
+                    await DisplayAlert("Error", errorMessage1, "Close"); // ...näyttäminen popup ikkunassa
+                    await DisplayAlert("Error", errorMessage2, "Close");
                 }
             }
-            catch (Exception ex) // Otetaan poikkeus ex muuttujaan ja sijoitetaan errorMessageen
+            else
             {
-                string errorMessage1 = "Catch: " + ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
-                string errorMessage2 = "Catch: " + ex.Message;
-                await DisplayAlert("Error", errorMessage1, "Close"); // ...näyttäminen popup ikkunassa
-                await DisplayAlert("Error", errorMessage2, "Close");
+                await DisplayAlert("Oopsie!", "Please fill all the fields.", "Ok");
             }
+            
 
         }
     }

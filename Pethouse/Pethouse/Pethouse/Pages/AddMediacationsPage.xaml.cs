@@ -72,8 +72,6 @@ namespace Pethouse.Pages
                     string errorMessage1 = ex.GetType().Name; // Poikkeuksen customoitu selvittäminen ja...
                     string errorMessage2 = ex.Message;
                     await DisplayAlert(errorMessage1, errorMessage2, "Error");
-                    //debugEntry.Text = errorMessage1; // ..näyttäminen list viewissä
-                    //debugEntry2.Text = errorMessage2;
                 }
 
             }
